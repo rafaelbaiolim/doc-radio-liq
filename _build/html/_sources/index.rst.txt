@@ -40,20 +40,35 @@ se necessário, execute o script ``web/app.dist.liq`` utilizando como parâmetro
 do script. A partir deste ponto o liquidsoap já estará rodando e transmitindo a rádio através 
 das configurações do Icecast.
 
+Arquivo XML de configuração do Liquidsoap
+#####################
+Para manter a compatibilidade com a versão inicial deste projeto foi implementado a bind dos atributos 
+presentes no arquivo de configuração XML dos clientes do autodj. O arquivo a seguir foi utilizado 
+para realizar os testes no servidor.
+
+.. literalinclude:: conf.example.xml
+  :language: JSON
+
+Nem todos os atributos deste arquivo são utilizados pelo script do Liquidsoap, mas podem ser mantidos 
+como linguagem de marcação. Segue os atributos obrigatórios para o funcionamento do script.
+
+.. csv-table:: Tabela de atributos obrigatórios Conf.xml
+   :file: conf-strct.csv
+   :widths: 30, 70
+   :header-rows: 1
+
 Arquivo JSON da playlist
 #####################
 Para que os scripts funcionem corretamente o arquivo JSON de configuração
 de playlist deve obrigatóriamente conter os seguintes atributos.:
 
-.. code-block:: json
-    
-    {
-        "settings": {
-            "play": "random",
-            "total": 19,
-            "last-update": 1534241236
-        },
-    }
+.. literalinclude:: playlist-strct.json
+  :language: JSON
+
+.. csv-table:: Tabela de atributos obrigatórios Playlist.json
+   :file: structure_playlist.csv
+   :widths: 30, 70
+   :header-rows: 1
 
 Scripts para Manipulação da Playlist
 #####################
@@ -76,7 +91,7 @@ através do Package Manager Opam.
 ``$ sudo apt-get update && sudo apt-get install opam``
 
 Em seguida:
-``$ opam init && eval `opam config env``
+``$ opam init && eval `opam config env```
 
 2. Instalação do Liquidsoap
  

@@ -1,0 +1,14 @@
+Chave,Valor
+settings.play, sequencial / random
+settings.total, total de músicas da playlist
+settings.last-update, Preenchido pelo Sistema
+playlists.original[].playlist_name, Nome da playlist
+playlists.original[].user_port, Porta
+playlists.original[].music_name, Nome da Música
+playlists.original[].duration, Duração
+playlists.original[].type, musica / hora_certa
+playlists.original[].total_musica, Total de músicas
+playlists.original[].music_location, Caminho absoluto da pasta
+playlists.original[].total_duracao, Duração playlist
+playing, Todos são preenchidos pelo Sistema 
+playing.status.current-music, Indice da música atual

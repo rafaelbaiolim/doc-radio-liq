@@ -1,0 +1,27 @@
+{
+    "settings": {
+        "play": "random",
+        "total": 19,
+        "last-update": 1533747126
+    },
+    "playlists": {
+        "original": [
+            {
+                "playlist_name": "playlist da manha teste",
+                "user_port": "8000",
+                "music_name": "televar",
+                "duration": "00:04:25",
+                "type": "musica",
+                "total_musica": 19,
+                "music_location": "\/home\/streaming\/web\/music\/musics\/",
+                "total_duracao": "02:45:15"
+            }
+        ],
+        "playing": {
+            "status": {
+                "current-music": ...
+            },
+            "musics": [...]
+        }
+    }
+}

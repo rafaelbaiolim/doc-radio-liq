@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<ices:Configuration xmlns:ices="http://www.icecast.org/projects/ices">
+  <Playlist>
+    <File>/home/streaming/web/conf/8000-playlist-da-manha-teste.json</File>
+    <Randomize>1</Randomize>
+    <Type>builtin</Type>
+    <Module>ices</Module>
+    <Crossfade>5</Crossfade>
+  </Playlist>
+  <Stream>
+    <Server>
+      <Hostname>45.32.203.142</Hostname>
+      <Port>8000</Port>
+      <User>hackme</User>
+      <Password>hackme</Password>
+      <Protocol>http</Protocol>
+    </Server>
+    <Mountpoint>/ao</Mountpoint>
+    <Name>Default stream</Name>
+    <Genre>Default genre</Genre>
+    <Description>Default description</Description>
+    <URL>http://localhost/</URL>
+    <Public>0</Public>
+    <Bitrate>128</Bitrate>
+    <Encode>AAC</Encode>
+    <Reencode>0</Reencode>
+    <Samplerate>44100</Samplerate>
+    <Channels>2</Channels>
+  </Stream>
+</ices:Configuration>

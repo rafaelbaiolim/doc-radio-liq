@@ -85,6 +85,7 @@
 <li><a class="reference internal" href="#">Documentação Rádio c/ Liquidsoap</a></li>
 <li><a class="reference internal" href="#manipulacao-e-execucao-do-projeto">Manipulação e Execução do Projeto</a><ul>
 <li><a class="reference internal" href="#executando-liquidsoap">Executando Liquidsoap</a></li>
+<li><a class="reference internal" href="#arquivo-xml-de-configuracao-do-liquidsoap">Arquivo XML de configuração do Liquidsoap</a></li>
 <li><a class="reference internal" href="#arquivo-json-da-playlist">Arquivo JSON da playlist</a></li>
 <li><a class="reference internal" href="#scripts-para-manipulacao-da-playlist">Scripts para Manipulação da Playlist</a></li>
 </ul>
@@ -187,27 +188,175 @@ se necessário, execute o script <code class="docutils literal notranslate"><spa
 do script. A partir deste ponto o liquidsoap já estará rodando e transmitindo a rádio através
 das configurações do Icecast.</p>
 </div>
+<div class="section" id="arquivo-xml-de-configuracao-do-liquidsoap">
+<h2>Arquivo XML de configuração do Liquidsoap<a class="headerlink" href="#arquivo-xml-de-configuracao-do-liquidsoap" title="Permalink to this headline">¶</a></h2>
+<p>Para manter a compatibilidade com a versão inicial deste projeto foi implementado a bind dos atributos
+presentes no arquivo de configuração XML dos clientes do autodj. O arquivo a seguir foi utilizado
+para realizar os testes no servidor.</p>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;ices:Configuration xmlns:ices=&quot;http://www.icecast.org/projects/ices&quot;&gt;
+  &lt;Playlist&gt;
+    &lt;File&gt;/home/streaming/web/conf/8000-playlist-da-manha-teste.json&lt;/File&gt;
+    &lt;Randomize&gt;1&lt;/Randomize&gt;
+    &lt;Type&gt;builtin&lt;/Type&gt;
+    &lt;Module&gt;ices&lt;/Module&gt;
+    &lt;Crossfade&gt;5&lt;/Crossfade&gt;
+  &lt;/Playlist&gt;
+  &lt;Stream&gt;
+    &lt;Server&gt;
+      &lt;Hostname&gt;45.32.203.142&lt;/Hostname&gt;
+      &lt;Port&gt;8000&lt;/Port&gt;
+      &lt;User&gt;hackme&lt;/User&gt;
+      &lt;Password&gt;hackme&lt;/Password&gt;
+      &lt;Protocol&gt;http&lt;/Protocol&gt;
+    &lt;/Server&gt;
+    &lt;Mountpoint&gt;/ao&lt;/Mountpoint&gt;
+    &lt;Name&gt;Default stream&lt;/Name&gt;
+    &lt;Genre&gt;Default genre&lt;/Genre&gt;
+    &lt;Description&gt;Default description&lt;/Description&gt;
+    &lt;URL&gt;http://localhost/&lt;/URL&gt;
+    &lt;Public&gt;0&lt;/Public&gt;
+    &lt;Bitrate&gt;128&lt;/Bitrate&gt;
+    &lt;Encode&gt;AAC&lt;/Encode&gt;
+    &lt;Reencode&gt;0&lt;/Reencode&gt;
+    &lt;Samplerate&gt;44100&lt;/Samplerate&gt;
+    &lt;Channels&gt;2&lt;/Channels&gt;
+  &lt;/Stream&gt;
+&lt;/ices:Configuration&gt;
+</pre></div>
+</div>
+<p>Nem todos os atributos deste arquivo são utilizados pelo script do Liquidsoap, mas podem ser mantidos
+como linguagem de marcação. Segue os atributos obrigatórios para o funcionamento do script.</p>
+<table border="1" class="colwidths-given docutils" id="id1">
+<caption><span class="caption-text">Tabela de atributos obrigatórios Conf.xml</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Chave</th>
+<th class="head">Observações</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>&lt;Stream&gt;&lt;Server&gt;</td>
+<td>X</td>
+</tr>
+<tr class="row-odd"><td>&lt;Mountpoint&gt;</td>
+<td>X</td>
+</tr>
+<tr class="row-even"><td>&lt;Genre&gt;</td>
+<td>X</td>
+</tr>
+<tr class="row-odd"><td>&lt;Description&gt;</td>
+<td>X</td>
+</tr>
+<tr class="row-even"><td>&lt;Bitrate&gt;</td>
+<td>X</td>
+</tr>
+<tr class="row-odd"><td>&lt;Encode&gt;</td>
+<td>MP3/AAC</td>
+</tr>
+<tr class="row-even"><td>&lt;Playlist&gt;&lt;File&gt;</td>
+<td>X</td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="section" id="arquivo-json-da-playlist">
 <h2>Arquivo JSON da playlist<a class="headerlink" href="#arquivo-json-da-playlist" title="Permalink to this headline">¶</a></h2>
 <p>Para que os scripts funcionem corretamente o arquivo JSON de configuração
 de playlist deve obrigatóriamente conter os seguintes atributos.:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-    <span class="nt">&quot;settings&quot;</span><span class="p">:</span> <span class="p">{</span>
-        <span class="nt">&quot;play&quot;</span><span class="p">:</span> <span class="s2">&quot;random&quot;</span><span class="p">,</span>
-        <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span>
-        <span class="nt">&quot;last-update&quot;</span><span class="p">:</span> <span class="mi">1534241236</span>
-    <span class="p">},</span>
-<span class="p">}</span>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span>{
+    &quot;settings&quot;: {
+        &quot;play&quot;: &quot;random&quot;,
+        &quot;total&quot;: 19,
+        &quot;last-update&quot;: 1533747126
+    },
+    &quot;playlists&quot;: {
+        &quot;original&quot;: [
+            {
+                &quot;playlist_name&quot;: &quot;playlist da manha teste&quot;,
+                &quot;user_port&quot;: &quot;8000&quot;,
+                &quot;music_name&quot;: &quot;televar&quot;,
+                &quot;duration&quot;: &quot;00:04:25&quot;,
+                &quot;type&quot;: &quot;musica&quot;,
+                &quot;total_musica&quot;: 19,
+                &quot;music_location&quot;: &quot;\/home\/streaming\/web\/music\/musics\/&quot;,
+                &quot;total_duracao&quot;: &quot;02:45:15&quot;
+            }
+        ],
+        &quot;playing&quot;: {
+            &quot;status&quot;: {
+                &quot;current-music&quot;: ...
+            },
+            &quot;musics&quot;: [...]
+        }
+    }
+}
 </pre></div>
 </div>
+<table border="1" class="colwidths-given docutils" id="id2">
+<caption><span class="caption-text">Tabela de atributos obrigatórios Playlist.json</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Chave</th>
+<th class="head">Valor</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>settings.play</td>
+<td>sequencial / random</td>
+</tr>
+<tr class="row-odd"><td>settings.total</td>
+<td>total de músicas da playlist</td>
+</tr>
+<tr class="row-even"><td>settings.last-update</td>
+<td>Preenchido pelo Sistema</td>
+</tr>
+<tr class="row-odd"><td>playlists.original[].playlist_name</td>
+<td>Nome da playlist</td>
+</tr>
+<tr class="row-even"><td>playlists.original[].user_port</td>
+<td>Porta</td>
+</tr>
+<tr class="row-odd"><td>playlists.original[].music_name</td>
+<td>Nome da Música</td>
+</tr>
+<tr class="row-even"><td>playlists.original[].duration</td>
+<td>Duração</td>
+</tr>
+<tr class="row-odd"><td>playlists.original[].type</td>
+<td>musica / hora_certa</td>
+</tr>
+<tr class="row-even"><td>playlists.original[].total_musica</td>
+<td>Total de músicas</td>
+</tr>
+<tr class="row-odd"><td>playlists.original[].music_location</td>
+<td>Caminho absoluto da pasta</td>
+</tr>
+<tr class="row-even"><td>playlists.original[].total_duracao</td>
+<td>Duração playlist</td>
+</tr>
+<tr class="row-odd"><td>playing</td>
+<td>Todos são preenchidos pelo Sistema</td>
+</tr>
+<tr class="row-even"><td>playing.status.current-music</td>
+<td>Indice da música atual</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section" id="scripts-para-manipulacao-da-playlist">
 <h2>Scripts para Manipulação da Playlist<a class="headerlink" href="#scripts-para-manipulacao-da-playlist" title="Permalink to this headline">¶</a></h2>
 <p>Os scripts desenvolvidos que manipulam as playlists do autodj assim como
 a playlist estão em sua maioria localizados na pasta <code class="docutils literal notranslate"><span class="pre">app/service</span></code> e são utilizados
 em sua maioria como <code class="docutils literal notranslate"><span class="pre">$php</span> <span class="pre">+</span> <span class="pre">_nome-do-script</span></code>.</p>
-<table border="1" class="colwidths-given docutils" id="id1">
-<caption><span class="caption-text">Tabela de Scripts que permitem chamadas externas</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id3">
+<caption><span class="caption-text">Tabela de Scripts que permitem chamadas externas</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="25%" />
 <col width="25%" />
@@ -248,7 +397,7 @@ através do Package Manager Opam.</p>
 <p>1. Instalação do opam:
 <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">update</span> <span class="pre">&amp;&amp;</span> <span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">opam</span></code></p>
 <p>Em seguida:
-<code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">opam</span> <span class="pre">init</span> <span class="pre">&amp;&amp;</span> <span class="pre">eval</span> <span class="pre">`opam</span> <span class="pre">config</span> <span class="pre">env</span></code></p>
+<code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">opam</span> <span class="pre">init</span> <span class="pre">&amp;&amp;</span> <span class="pre">eval</span> <span class="pre">`opam</span> <span class="pre">config</span> <span class="pre">env`</span></code></p>
 <ol class="arabic simple" start="2">
 <li>Instalação do Liquidsoap</li>
 </ol>
