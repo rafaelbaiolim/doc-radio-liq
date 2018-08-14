@@ -1,0 +1,4 @@
+Script,Descrição,Parametro(s),Response
+app/service/get_newsong.php, Pula uma música, Mountpoint (cli), X
+app/service/playlist_stop.php, Para a playlist em execução, Pid Liquid (cli), X
+app/service/playlist_status.php, Status das músicas da playlist, Pid Liquid (cli), JSON

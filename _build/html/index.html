@@ -1,0 +1,334 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="pt-br" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="pt-br" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Documentação Rádio c/ Liquidsoap &mdash; radio liquidsoap  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> radio liquidsoap
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Documentação Rádio c/ Liquidsoap</a></li>
+<li><a class="reference internal" href="#manipulacao-e-execucao-do-projeto">Manipulação e Execução do Projeto</a><ul>
+<li><a class="reference internal" href="#executando-liquidsoap">Executando Liquidsoap</a></li>
+<li><a class="reference internal" href="#arquivo-json-da-playlist">Arquivo JSON da playlist</a></li>
+<li><a class="reference internal" href="#scripts-para-manipulacao-da-playlist">Scripts para Manipulação da Playlist</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#instalacao-do-liquidsoap-com-encoders">Instalação do Liquidsoap com Encoders</a></li>
+<li><a class="reference internal" href="#dependencias-do-servidor">Dependências do Servidor</a><ul>
+<li><a class="reference internal" href="#observacoes-pertinentes">Observações Pertinentes</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">radio liquidsoap</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Documentação Rádio c/ Liquidsoap</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="documentacao-radio-c-liquidsoap">
+<h1>Documentação Rádio c/ Liquidsoap<a class="headerlink" href="#documentacao-radio-c-liquidsoap" title="Permalink to this headline">¶</a></h1>
+<p>Documentação relativa a Rádio implementada com Liquidsoap.
+Nesta documentação estão presentes as configurações necessárias
+para reinstalar e manipular o projeto em questão.</p>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="manipulacao-e-execucao-do-projeto">
+<h1>Manipulação e Execução do Projeto<a class="headerlink" href="#manipulacao-e-execucao-do-projeto" title="Permalink to this headline">¶</a></h1>
+<p>A elaboração deste projeto foi adaptada a partir da sua versão inicial, substituindo
+a ferramenta ICES por Liquidsoap. Para rodar o autodj é necessário que os seguintes
+processos sejam executados.:</p>
+<ol class="arabic simple">
+<li>Banco MySQL com os dados importados para autenticação das lives.</li>
+<li>Icecast2 com sua respectiva config. (Playlist e Live)</li>
+<li>Script do Liquidsoap apontando para as config. do Icecast.</li>
+<li>JSON da playlist com o formato que será apresentado.</li>
+</ol>
+<div class="section" id="executando-liquidsoap">
+<h2>Executando Liquidsoap<a class="headerlink" href="#executando-liquidsoap" title="Permalink to this headline">¶</a></h2>
+<p>Com a ferramenta devidamente instalada, veja a secção <a class="reference internal" href="#instalacao-do-liquidsoap-com-encoders"><span class="std std-ref">Instalação do Liquidsoap com Encoders</span></a>
+se necessário, execute o script <code class="docutils literal notranslate"><span class="pre">web/app.dist.liq</span></code> utilizando como parâmetro o caminho arquivo
+.conf que a principio era utilizado pelo ICES. Ex.:</p>
+<p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">liquidsoap</span> <span class="pre">app.dist.liq</span> <span class="pre">--</span> <span class="pre">/home/streaming/web/app/config/liquid.conf.dist</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">--</span></code> É necessário para informar ao liquid que as linhas seguintes referem-se a parâmetros
+do script. A partir deste ponto o liquidsoap já estará rodando e transmitindo a rádio através
+das configurações do Icecast.</p>
+</div>
+<div class="section" id="arquivo-json-da-playlist">
+<h2>Arquivo JSON da playlist<a class="headerlink" href="#arquivo-json-da-playlist" title="Permalink to this headline">¶</a></h2>
+<p>Para que os scripts funcionem corretamente o arquivo JSON de configuração
+de playlist deve obrigatóriamente conter os seguintes atributos.:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">&quot;settings&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;play&quot;</span><span class="p">:</span> <span class="s2">&quot;random&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">19</span><span class="p">,</span>
+        <span class="nt">&quot;last-update&quot;</span><span class="p">:</span> <span class="mi">1534241236</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="scripts-para-manipulacao-da-playlist">
+<h2>Scripts para Manipulação da Playlist<a class="headerlink" href="#scripts-para-manipulacao-da-playlist" title="Permalink to this headline">¶</a></h2>
+<p>Os scripts desenvolvidos que manipulam as playlists do autodj assim como
+a playlist estão em sua maioria localizados na pasta <code class="docutils literal notranslate"><span class="pre">app/service</span></code> e são utilizados
+em sua maioria como <code class="docutils literal notranslate"><span class="pre">$php</span> <span class="pre">+</span> <span class="pre">_nome-do-script</span></code>.</p>
+<table border="1" class="colwidths-given docutils" id="id1">
+<caption><span class="caption-text">Tabela de Scripts que permitem chamadas externas</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Script</th>
+<th class="head">Descrição</th>
+<th class="head">Parametro(s)</th>
+<th class="head">Response</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>app/service/get_newsong.php</td>
+<td>Pula uma música</td>
+<td>Mountpoint (cli)</td>
+<td>X</td>
+</tr>
+<tr class="row-odd"><td>app/service/playlist_stop.php</td>
+<td>Para a playlist em execução</td>
+<td>Pid Liquid (cli)</td>
+<td>X</td>
+</tr>
+<tr class="row-even"><td>app/service/playlist_status.php</td>
+<td>Status das músicas da playlist</td>
+<td>Pid Liquid (cli)</td>
+<td>JSON</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="instalacao-do-liquidsoap-com-encoders">
+<h1>Instalação do Liquidsoap com Encoders<a class="headerlink" href="#instalacao-do-liquidsoap-com-encoders" title="Permalink to this headline">¶</a></h1>
+<p>A aplicação assim como as dependências do liquidsoap são gerenciadas
+através do Package Manager Opam.</p>
+<p>1. Instalação do opam:
+<code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">update</span> <span class="pre">&amp;&amp;</span> <span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">opam</span></code></p>
+<p>Em seguida:
+<code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">opam</span> <span class="pre">init</span> <span class="pre">&amp;&amp;</span> <span class="pre">eval</span> <span class="pre">`opam</span> <span class="pre">config</span> <span class="pre">env</span></code></p>
+<ol class="arabic simple" start="2">
+<li>Instalação do Liquidsoap</li>
+</ol>
+<p>Verifique as dependências necessárioas através do plugin depext:
+<code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">opam</span> <span class="pre">install</span> <span class="pre">depext</span> <span class="pre">&amp;&amp;</span> <span class="pre">opam</span> <span class="pre">depext</span> <span class="pre">taglib</span> <span class="pre">mad</span> <span class="pre">lame</span> <span class="pre">vorbis</span> <span class="pre">cry</span> <span class="pre">ssl</span> <span class="pre">samplerate</span> <span class="pre">magic</span> <span class="pre">opus</span> <span class="pre">liquidsoap</span></code></p>
+<p>Para instalar:  <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">opam</span> <span class="pre">install</span> <span class="pre">taglib</span> <span class="pre">mad</span> <span class="pre">lame</span> <span class="pre">vorbis</span> <span class="pre">cry</span> <span class="pre">ssl</span> <span class="pre">samplerate</span> <span class="pre">magic</span> <span class="pre">opus</span> <span class="pre">liquidsoap</span></code></p>
+<p>3. Instalação dos pacotes de codificação para os principais formatos diferentes de MP3
+<code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">opam</span> <span class="pre">depext</span> <span class="pre">fdkaac</span> <span class="pre">&amp;&amp;</span> <span class="pre">opam</span> <span class="pre">install</span> <span class="pre">fdkaac</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">opam</span> <span class="pre">depext</span> <span class="pre">aacplus.0.2.2</span> <span class="pre">&amp;&amp;</span> <span class="pre">opam</span> <span class="pre">install</span> <span class="pre">aacplus.0.2.2</span></code></p>
+</div>
+<div class="section" id="dependencias-do-servidor">
+<h1>Dependências do Servidor<a class="headerlink" href="#dependencias-do-servidor" title="Permalink to this headline">¶</a></h1>
+<p>No projeto o Liquidsoap realiza chamadas externas para manipular as playlists
+e fazer a leitura das configurações da rádio. Essas chamadas se utilizam do <code class="docutils literal notranslate"><span class="pre">PHP</span></code>.
+O <code class="docutils literal notranslate"><span class="pre">MYSQL</span></code> também é uma dependência deste projeto e
+está sendo utilizado nas configurações da live do projeto.
+As dependências citadas nesta secção podem ser intaladas com os seguintes comandos:</p>
+<p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">php,</span> <span class="pre">php-xml,</span> <span class="pre">php-simplexml,</span> <span class="pre">php-mysql</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">mysql-server</span></code></p>
+<div class="section" id="observacoes-pertinentes">
+<h2>Observações Pertinentes<a class="headerlink" href="#observacoes-pertinentes" title="Permalink to this headline">¶</a></h2>
+<p>De preferência a usar caminhos absolutos para referenciar o caminho dos arquivos,
+tanto no arquivo JSON quanto nos parâmetros de script.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Rafael Baiolim.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'',
+            LANGUAGE:'pt-br',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
