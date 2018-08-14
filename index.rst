@@ -76,7 +76,7 @@ através do Package Manager Opam.
 ``$ sudo apt-get update && sudo apt-get install opam``
 
 Em seguida:
-``$ opam init && eval `opam config env``
+``$ opam init && eval `opam config env```
 
 2. Instalação do Liquidsoap
  
