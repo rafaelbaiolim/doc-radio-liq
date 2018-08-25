@@ -393,7 +393,8 @@ em sua maioria como <code class="docutils literal notranslate"><span class="pre"
 <div class="section" id="instalacao-do-liquidsoap-com-encoders">
 <h1>Instalação do Liquidsoap com Encoders<a class="headerlink" href="#instalacao-do-liquidsoap-com-encoders" title="Permalink to this headline">¶</a></h1>
 <p>A aplicação assim como as dependências do liquidsoap são gerenciadas
-através do Package Manager Opam.</p>
+através do Package Manager Opam. Não instale o OPAM nem suas dependências
+como <cite>root</cite>, utilize o usuário que será usado para execução do S.O .</p>
 <p>1. Instalação do opam:
 <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">update</span> <span class="pre">&amp;&amp;</span> <span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">opam</span></code></p>
 <p>Em seguida:
@@ -403,10 +404,9 @@ através do Package Manager Opam.</p>
 </ol>
 <p>Verifique as dependências necessárioas através do plugin depext:
 <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">opam</span> <span class="pre">install</span> <span class="pre">depext</span> <span class="pre">&amp;&amp;</span> <span class="pre">opam</span> <span class="pre">depext</span> <span class="pre">taglib</span> <span class="pre">mad</span> <span class="pre">lame</span> <span class="pre">vorbis</span> <span class="pre">cry</span> <span class="pre">ssl</span> <span class="pre">samplerate</span> <span class="pre">magic</span> <span class="pre">opus</span> <span class="pre">liquidsoap</span></code></p>
-<p>Para instalar:  <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">opam</span> <span class="pre">install</span> <span class="pre">taglib</span> <span class="pre">mad</span> <span class="pre">lame</span> <span class="pre">vorbis</span> <span class="pre">cry</span> <span class="pre">ssl</span> <span class="pre">samplerate</span> <span class="pre">magic</span> <span class="pre">opus</span> <span class="pre">liquidsoap</span></code></p>
+<p>Para instalar: <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">opam</span> <span class="pre">install</span> <span class="pre">taglib</span> <span class="pre">mad</span> <span class="pre">lame</span> <span class="pre">vorbis</span> <span class="pre">cry</span> <span class="pre">ssl</span> <span class="pre">samplerate</span> <span class="pre">magic</span> <span class="pre">opus</span> <span class="pre">liquidsoap</span></code></p>
 <p>3. Instalação dos pacotes de codificação para os principais formatos diferentes de MP3
 <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">opam</span> <span class="pre">depext</span> <span class="pre">fdkaac</span> <span class="pre">&amp;&amp;</span> <span class="pre">opam</span> <span class="pre">install</span> <span class="pre">fdkaac</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">opam</span> <span class="pre">depext</span> <span class="pre">aacplus.0.2.2</span> <span class="pre">&amp;&amp;</span> <span class="pre">opam</span> <span class="pre">install</span> <span class="pre">aacplus.0.2.2</span></code></p>
 </div>
 <div class="section" id="dependencias-do-servidor">
 <h1>Dependências do Servidor<a class="headerlink" href="#dependencias-do-servidor" title="Permalink to this headline">¶</a></h1>
@@ -415,8 +415,7 @@ e fazer a leitura das configurações da rádio. Essas chamadas se utilizam do <
 O <code class="docutils literal notranslate"><span class="pre">MYSQL</span></code> também é uma dependência deste projeto e
 está sendo utilizado nas configurações da live do projeto.
 As dependências citadas nesta secção podem ser intaladas com os seguintes comandos:</p>
-<p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">php,</span> <span class="pre">php-xml,</span> <span class="pre">php-simplexml,</span> <span class="pre">php-mysql</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">mysql-server</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">sudo</span> <span class="pre">icecast2</span> <span class="pre">git</span> <span class="pre">python</span> <span class="pre">python-dev</span> <span class="pre">apache2</span> <span class="pre">php7.2</span> <span class="pre">php7.2-xml</span> <span class="pre">php7.2-simplexml</span> <span class="pre">php7.2-mysql</span> <span class="pre">mysql-server</span> <span class="pre">opam</span></code></p>
 <div class="section" id="observacoes-pertinentes">
 <h2>Observações Pertinentes<a class="headerlink" href="#observacoes-pertinentes" title="Permalink to this headline">¶</a></h2>
 <p>De preferência a usar caminhos absolutos para referenciar o caminho dos arquivos,

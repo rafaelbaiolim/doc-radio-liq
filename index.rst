@@ -85,7 +85,8 @@ em sua maioria como ``$php + _nome-do-script``.
 Instalação do Liquidsoap com Encoders
 ======================================
 A aplicação assim como as dependências do liquidsoap são gerenciadas 
-através do Package Manager Opam.
+através do Package Manager Opam. Não instale o OPAM nem suas dependências
+como `root`, utilize o usuário que será usado para execução do S.O .
 
 1. Instalação do opam:
 ``$ sudo apt-get update && sudo apt-get install opam``
@@ -98,13 +99,10 @@ Em seguida:
 Verifique as dependências necessárioas através do plugin depext:  
 ``$ opam install depext && opam depext taglib mad lame vorbis cry ssl samplerate magic opus liquidsoap``
 
-Para instalar:  ``$ opam install taglib mad lame vorbis cry ssl samplerate magic opus liquidsoap``
+Para instalar: ``$ opam install taglib mad lame vorbis cry ssl samplerate magic opus liquidsoap``
 
 3. Instalação dos pacotes de codificação para os principais formatos diferentes de MP3
 ``$ opam depext fdkaac && opam install fdkaac``
-
-``$ opam depext aacplus.0.2.2 && opam install aacplus.0.2.2``
-
 
 Dependências do Servidor
 ======================================
@@ -114,9 +112,7 @@ O ``MYSQL`` também é uma dependência deste projeto e
 está sendo utilizado nas configurações da live do projeto. 
 As dependências citadas nesta secção podem ser intaladas com os seguintes comandos:  
 
-``$ sudo apt-get install php, php-xml, php-simplexml, php-mysql``
-
-``$ sudo apt-get install mysql-server``
+``$ sudo icecast2 git python python-dev apache2 php7.2 php7.2-xml php7.2-simplexml php7.2-mysql mysql-server opam``
 
 Observações Pertinentes
 #####################
