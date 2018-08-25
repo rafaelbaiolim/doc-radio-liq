@@ -109,7 +109,8 @@ Dependências do Servidor
 
 As deste projeto podem ser instaladas com o seguinte comando:  
 
-``$ sudo icecast2 git python python-dev apache2 php7.2 php7.2-xml php7.2-simplexml php7.2-mysql mysql-server opam``
+``$ sudo icecast2 git python python-dev apache2 php7.2 php7.2-xml php7.2-simplexml php7.2-mysql 
+mysql-server opam``
 
 Script de Instalação
 ======================================
