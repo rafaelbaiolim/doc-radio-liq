@@ -106,15 +106,22 @@ Para instalar: ``$ opam install taglib mad lame vorbis cry ssl samplerate magic 
 
 Dependências do Servidor
 ======================================
-No projeto o Liquidsoap realiza chamadas externas para manipular as playlists
-e fazer a leitura das configurações da rádio. Essas chamadas se utilizam do ``PHP``. 
-O ``MYSQL`` também é uma dependência deste projeto e 
-está sendo utilizado nas configurações da live do projeto. 
-As dependências citadas nesta secção podem ser intaladas com os seguintes comandos:  
+
+As deste projeto podem ser instaladas com o seguinte comando:  
 
 ``$ sudo icecast2 git python python-dev apache2 php7.2 php7.2-xml php7.2-simplexml php7.2-mysql mysql-server opam``
 
+Script de Instalação
+======================================
+
+O script de instalação foi desenvolvido para automatizar e auxiliar na instalação
+das ferramentas desta documentação e pode ser encontrado em .:
+
+https://gitlab.com/rafaelbaiolim1/liquidsoap/tree/install
+
+
 Observações Pertinentes
 #####################
+
 De preferência a usar caminhos absolutos para referenciar o caminho dos arquivos,
 tanto no arquivo JSON quanto nos parâmetros de script.
