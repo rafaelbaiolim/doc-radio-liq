@@ -14,6 +14,18 @@ para reinstalar e manipular o projeto em questão.
    :caption: Contents:
 
 
+Iniciando a aplicação
+======================================
+A partir do root é possivel inicializar o programa usando o script `ligar_autodj`,
+execute .:
+
+``sudo su - streaming scripts/ligar_autodj $1 $2``
+
+``$1 (parâmetro obrigatório) : porta icecast2``
+
+``$2 (parâmetro opcional, mostra o log do liquidsoap) : TRUE ``
+
+
 Manipulação e Execução do Projeto 
 ======================================
 A elaboração deste projeto foi adaptada a partir da sua versão inicial, substituindo 
@@ -109,7 +121,7 @@ Dependências do Servidor
 
 As deste projeto podem ser instaladas com o seguinte comando:  
 
-``$ sudo icecast2 git python python-dev apache2 php7.2 php7.2-xml php7.2-simplexml php7.2-mysql 
+``$ sudo icecast2 git python python-dev apache2 php php-xml php-simplexml php-mysql 
 mysql-server opam``
 
 Script de Instalação
