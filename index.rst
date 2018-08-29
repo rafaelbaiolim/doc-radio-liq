@@ -43,10 +43,10 @@ processos sejam executados.:
 Executando Liquidsoap
 #####################
 Com a ferramenta devidamente instalada, veja a secção :ref:`Instalação do Liquidsoap com Encoders`
-se necessário, execute o script ``web/app.dist.liq`` utilizando como parâmetro o caminho arquivo 
-.conf que a principio era utilizado pelo ICES. Ex.:
+se necessário, execute o script ``web/app.dist.liq`` utilizando como parâmetro a porta em que o `icecast2` 
+está executando Ex.:
 
-``$ liquidsoap app.dist.liq -- /home/streaming/web/app/config/liquid.conf.dist``
+``$ liquidsoap app.dist.liq -- $porta``
 
 ``--`` É necessário para informar ao liquid que as linhas seguintes referem-se a parâmetros 
 do script. A partir deste ponto o liquidsoap já estará rodando e transmitindo a rádio através 
