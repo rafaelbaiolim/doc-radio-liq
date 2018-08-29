@@ -23,7 +23,7 @@ execute .:
 
 ``$1 (parâmetro obrigatório) : porta icecast2``
 
-``$2 (parâmetro opcional, mostra o log do liquidsoap) : TRUE ``
+``$2 (parâmetro opcional, mostra o log do liquidsoap) : TRUE``
 
 
 Manipulação e Execução do Projeto 
