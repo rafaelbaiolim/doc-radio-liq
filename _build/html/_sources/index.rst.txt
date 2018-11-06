@@ -56,8 +56,7 @@ A tabela usada para testes deve conter os seguintes registros após importada:
    :file: locutores.csv
    :header-rows: 1 
 
-``Note que é necessário que as flags de schedule, bem como os horários de streaming estejam setadas 
-corretamente para a autenticação ocorrer corretamente``
+*Note que é necessário que as flags de schedule, bem como os horários de streaming estejam setadas corretamente para a autenticação ocorrer corretamente*
 
 Explicações Detalhadas
 ======================================
