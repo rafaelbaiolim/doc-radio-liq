@@ -83,6 +83,14 @@
               <!-- Local TOC -->
               <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Documentação Rádio c/ Liquidsoap</a></li>
+<li><a class="reference internal" href="#instalacao">Instalação</a></li>
+<li><a class="reference internal" href="#testes">Testes</a><ul>
+<li><a class="reference internal" href="#geracao-e-teste-porta-8000">Geração e Teste (Porta 8000)</a></li>
+<li><a class="reference internal" href="#live">Live</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#explicacoes-detalhadas">Explicações Detalhadas</a><ul>
+<li><a class="reference internal" href="#iniciando-a-aplicacao">Iniciando a aplicação</a></li>
 <li><a class="reference internal" href="#manipulacao-e-execucao-do-projeto">Manipulação e Execução do Projeto</a><ul>
 <li><a class="reference internal" href="#executando-liquidsoap">Executando Liquidsoap</a></li>
 <li><a class="reference internal" href="#arquivo-xml-de-configuracao-do-liquidsoap">Arquivo XML de configuração do Liquidsoap</a></li>
@@ -91,8 +99,16 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#instalacao-do-liquidsoap-com-encoders">Instalação do Liquidsoap com Encoders</a></li>
-<li><a class="reference internal" href="#dependencias-do-servidor">Dependências do Servidor</a><ul>
+<li><a class="reference internal" href="#dependencias-do-servidor">Dependências do Servidor</a></li>
+<li><a class="reference internal" href="#script-de-instalacao">Script de Instalação</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#observacoes-pertinentes">Observações Pertinentes</a></li>
+<li><a class="reference internal" href="#solucoes-conhecidas">Soluções Conhecidas</a><ul>
+<li><a class="reference internal" href="#problema-de-leitura-dos-arquivos-xml">Problema de Leitura dos Arquivos XML</a></li>
+<li><a class="reference internal" href="#falta-de-memoria-no-servidor-para-instalcao-do-opam">Falta de memória no servidor para instalção do OPAM</a></li>
+<li><a class="reference internal" href="#grupo-de-usuario-sem-permissao-no-liquidsoap">Grupo de usuário sem permissão no Liquidsoap</a></li>
+<li><a class="reference internal" href="#habilitar-conexao-remota-mysql">Habilitar Conexão Remota MYSQL</a></li>
 </ul>
 </li>
 </ul>
@@ -167,8 +183,112 @@ para reinstalar e manipular o projeto em questão.</p>
 <div class="toctree-wrapper compound">
 </div>
 </div>
+<div class="section" id="instalacao">
+<h1>Instalação<a class="headerlink" href="#instalacao" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic simple">
+<li><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://gitlab.com/rafaelbaiolim1/liquidsoap.git</span> <span class="pre">-b</span> <span class="pre">install</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">-H</span> <span class="pre">-u</span> <span class="pre">streaming</span> <span class="pre">bash</span> <span class="pre">-c</span> <span class="pre">&quot;./make.sh&quot;</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">mkdir</span> <span class="pre">/var/run/liquidsoap</span> <span class="pre">&amp;&amp;</span> <span class="pre">sudo</span> <span class="pre">chown</span> <span class="pre">streaming:streaming</span> <span class="pre">/var/run/liquidsoap</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">&quot;create</span> <span class="pre">database</span> <span class="pre">`stream_cast`&quot;</span> <span class="pre">|</span> <span class="pre">mysql</span> <span class="pre">-u</span> <span class="pre">&lt;username&gt;</span> <span class="pre">-p</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/home/streaming/web/assets/</span> <span class="pre">&amp;&amp;</span> <span class="pre">mysql</span> <span class="pre">-u</span> <span class="pre">&lt;username&gt;</span> <span class="pre">-p</span> <span class="pre">stream_cast</span> <span class="pre">&lt;</span> <span class="pre">locutores.sql&quot;</span></code></li>
+</ol>
+</div>
+<div class="section" id="testes">
+<h1>Testes<a class="headerlink" href="#testes" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="geracao-e-teste-porta-8000">
+<h2>Geração e Teste (Porta 8000)<a class="headerlink" href="#geracao-e-teste-porta-8000" title="Permalink to this headline">¶</a></h2>
+<p>O IP da máquina é associado automaticamente em <code class="docutils literal notranslate"><span class="pre">src.config.generator.php</span></code>.</p>
+<ol class="arabic simple">
+<li><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/home/streaming</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">php</span> <span class="pre">web/app/utils/src.config.generator.php</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">chmod</span> <span class="pre">777</span> <span class="pre">-R</span> <span class="pre">/home/streaming/configs</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">killall</span> <span class="pre">icecast2</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">icecast2</span> <span class="pre">-c</span> <span class="pre">configs/8000.xml</span> <span class="pre">-b</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">sh</span> <span class="pre">scripts/ligar_autodj</span> <span class="pre">8000</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">chmod</span> <span class="pre">777</span> <span class="pre">-R</span> <span class="pre">/home/streaming/configs</span></code></li>
+</ol>
+</div>
+<div class="section" id="live">
+<h2>Live<a class="headerlink" href="#live" title="Permalink to this headline">¶</a></h2>
+<p>Por padrão o script gera a <em>live</em> na porta seguinte <code class="docutils literal notranslate"><span class="pre">(porta</span> <span class="pre">+</span> <span class="pre">1)</span></code>.
+<code class="docutils literal notranslate"><span class="pre">Não</span> <span class="pre">é</span> <span class="pre">possível</span> <span class="pre">colocar</span> <span class="pre">a</span> <span class="pre">live</span> <span class="pre">e</span> <span class="pre">a</span> <span class="pre">rádio</span> <span class="pre">na</span> <span class="pre">mesma</span> <span class="pre">porta</span></code>.
+As configurações para conexão do <em>DJ</em> na rádio da porta <code class="docutils literal notranslate"><span class="pre">8000</span></code>
+pode ser configurada na ferramenta Butt como na figura abaixo.</p>
+<a class="reference internal image-reference" href="_images/live-example.png"><img alt="Butt Config Live" class="align-center" src="_images/live-example.png" style="width: 200px; height: 280px;" /></a>
+<p>Os dados desta autenticação estão na tabela de <code class="docutils literal notranslate"><span class="pre">'locutores'</span> <span class="pre">do</span> <span class="pre">banco</span> <span class="pre">MYSQL</span></code>, importada no passo de instação.
+A tabela usada para testes deve conter os seguintes registros após importada:</p>
+<table border="1" class="docutils" id="id1">
+<caption><span class="caption-text">Registro de teste da tabela locutores</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+<col width="7%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">id</th>
+<th class="head">port</th>
+<th class="head">mount_point</th>
+<th class="head">login</th>
+<th class="head">password</th>
+<th class="head">schedule_sun</th>
+<th class="head">schedule_mon</th>
+<th class="head">schedule_tue</th>
+<th class="head">schedule_wed</th>
+<th class="head">schedule_thu</th>
+<th class="head">schedule_fri</th>
+<th class="head">schedule_sat</th>
+<th class="head">hour_period_start</th>
+<th class="head">hour_period_end</th>
+<th class="head">timezone</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>8001</td>
+<td>live</td>
+<td>rafael</td>
+<td>81dd408b0131533ffc9dc26a3317ab57c1e20e2d</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>00:01:00</td>
+<td>23:59:00</td>
+<td>America/Sao_Paulo</td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">Note</span> <span class="pre">que</span> <span class="pre">é</span> <span class="pre">necessário</span> <span class="pre">que</span> <span class="pre">as</span> <span class="pre">flags</span> <span class="pre">de</span> <span class="pre">schedule,</span> <span class="pre">bem</span> <span class="pre">como</span> <span class="pre">os</span> <span class="pre">horários</span> <span class="pre">de</span> <span class="pre">streaming</span> <span class="pre">estejam</span> <span class="pre">setadas</span>
+<span class="pre">corretamente</span> <span class="pre">para</span> <span class="pre">a</span> <span class="pre">autenticação</span> <span class="pre">ocorrer</span> <span class="pre">corretamente</span></code></p>
+</div>
+</div>
+<div class="section" id="explicacoes-detalhadas">
+<h1>Explicações Detalhadas<a class="headerlink" href="#explicacoes-detalhadas" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="iniciando-a-aplicacao">
+<h2>Iniciando a aplicação<a class="headerlink" href="#iniciando-a-aplicacao" title="Permalink to this headline">¶</a></h2>
+<p>A partir do root é possivel inicializar o programa usando o script <cite>ligar_autodj</cite>,
+execute .:</p>
+<p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">su</span> <span class="pre">-</span> <span class="pre">streaming</span> <span class="pre">scripts/ligar_autodj</span> <span class="pre">$1</span> <span class="pre">$2</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">$1</span> <span class="pre">(parâmetro</span> <span class="pre">obrigatório)</span> <span class="pre">:</span> <span class="pre">porta</span> <span class="pre">icecast2</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">$2</span> <span class="pre">(parâmetro</span> <span class="pre">opcional,</span> <span class="pre">mostra</span> <span class="pre">o</span> <span class="pre">log</span> <span class="pre">do</span> <span class="pre">liquidsoap)</span> <span class="pre">:</span> <span class="pre">TRUE</span></code></p>
+</div>
 <div class="section" id="manipulacao-e-execucao-do-projeto">
-<h1>Manipulação e Execução do Projeto<a class="headerlink" href="#manipulacao-e-execucao-do-projeto" title="Permalink to this headline">¶</a></h1>
+<h2>Manipulação e Execução do Projeto<a class="headerlink" href="#manipulacao-e-execucao-do-projeto" title="Permalink to this headline">¶</a></h2>
 <p>A elaboração deste projeto foi adaptada a partir da sua versão inicial, substituindo
 a ferramenta ICES por Liquidsoap. Para rodar o autodj é necessário que os seguintes
 processos sejam executados.:</p>
@@ -179,17 +299,17 @@ processos sejam executados.:</p>
 <li>JSON da playlist com o formato que será apresentado.</li>
 </ol>
 <div class="section" id="executando-liquidsoap">
-<h2>Executando Liquidsoap<a class="headerlink" href="#executando-liquidsoap" title="Permalink to this headline">¶</a></h2>
+<h3>Executando Liquidsoap<a class="headerlink" href="#executando-liquidsoap" title="Permalink to this headline">¶</a></h3>
 <p>Com a ferramenta devidamente instalada, veja a secção <a class="reference internal" href="#instalacao-do-liquidsoap-com-encoders"><span class="std std-ref">Instalação do Liquidsoap com Encoders</span></a>
-se necessário, execute o script <code class="docutils literal notranslate"><span class="pre">web/app.dist.liq</span></code> utilizando como parâmetro o caminho arquivo
-.conf que a principio era utilizado pelo ICES. Ex.:</p>
-<p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">liquidsoap</span> <span class="pre">app.dist.liq</span> <span class="pre">--</span> <span class="pre">/home/streaming/web/app/config/liquid.conf.dist</span></code></p>
+se necessário, execute o script <code class="docutils literal notranslate"><span class="pre">web/app.dist.liq</span></code> utilizando como parâmetro a porta em que o <cite>icecast2</cite>
+está executando Ex.:</p>
+<p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">liquidsoap</span> <span class="pre">app.dist.liq</span> <span class="pre">--</span> <span class="pre">$porta</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">--</span></code> É necessário para informar ao liquid que as linhas seguintes referem-se a parâmetros
 do script. A partir deste ponto o liquidsoap já estará rodando e transmitindo a rádio através
 das configurações do Icecast.</p>
 </div>
 <div class="section" id="arquivo-xml-de-configuracao-do-liquidsoap">
-<h2>Arquivo XML de configuração do Liquidsoap<a class="headerlink" href="#arquivo-xml-de-configuracao-do-liquidsoap" title="Permalink to this headline">¶</a></h2>
+<h3>Arquivo XML de configuração do Liquidsoap<a class="headerlink" href="#arquivo-xml-de-configuracao-do-liquidsoap" title="Permalink to this headline">¶</a></h3>
 <p>Para manter a compatibilidade com a versão inicial deste projeto foi implementado a bind dos atributos
 presentes no arquivo de configuração XML dos clientes do autodj. O arquivo a seguir foi utilizado
 para realizar os testes no servidor.</p>
@@ -227,8 +347,8 @@ para realizar os testes no servidor.</p>
 </div>
 <p>Nem todos os atributos deste arquivo são utilizados pelo script do Liquidsoap, mas podem ser mantidos
 como linguagem de marcação. Segue os atributos obrigatórios para o funcionamento do script.</p>
-<table border="1" class="colwidths-given docutils" id="id1">
-<caption><span class="caption-text">Tabela de atributos obrigatórios Conf.xml</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id2">
+<caption><span class="caption-text">Tabela de atributos obrigatórios Conf.xml</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="30%" />
 <col width="70%" />
@@ -264,7 +384,7 @@ como linguagem de marcação. Segue os atributos obrigatórios para o funcioname
 </table>
 </div>
 <div class="section" id="arquivo-json-da-playlist">
-<h2>Arquivo JSON da playlist<a class="headerlink" href="#arquivo-json-da-playlist" title="Permalink to this headline">¶</a></h2>
+<h3>Arquivo JSON da playlist<a class="headerlink" href="#arquivo-json-da-playlist" title="Permalink to this headline">¶</a></h3>
 <p>Para que os scripts funcionem corretamente o arquivo JSON de configuração
 de playlist deve obrigatóriamente conter os seguintes atributos.:</p>
 <div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span>{
@@ -296,8 +416,8 @@ de playlist deve obrigatóriamente conter os seguintes atributos.:</p>
 }
 </pre></div>
 </div>
-<table border="1" class="colwidths-given docutils" id="id2">
-<caption><span class="caption-text">Tabela de atributos obrigatórios Playlist.json</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id3">
+<caption><span class="caption-text">Tabela de atributos obrigatórios Playlist.json</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="30%" />
 <col width="70%" />
@@ -351,12 +471,12 @@ de playlist deve obrigatóriamente conter os seguintes atributos.:</p>
 </table>
 </div>
 <div class="section" id="scripts-para-manipulacao-da-playlist">
-<h2>Scripts para Manipulação da Playlist<a class="headerlink" href="#scripts-para-manipulacao-da-playlist" title="Permalink to this headline">¶</a></h2>
+<h3>Scripts para Manipulação da Playlist<a class="headerlink" href="#scripts-para-manipulacao-da-playlist" title="Permalink to this headline">¶</a></h3>
 <p>Os scripts desenvolvidos que manipulam as playlists do autodj assim como
 a playlist estão em sua maioria localizados na pasta <code class="docutils literal notranslate"><span class="pre">app/service</span></code> e são utilizados
 em sua maioria como <code class="docutils literal notranslate"><span class="pre">$php</span> <span class="pre">+</span> <span class="pre">_nome-do-script</span></code>.</p>
-<table border="1" class="colwidths-given docutils" id="id3">
-<caption><span class="caption-text">Tabela de Scripts que permitem chamadas externas</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
+<table border="1" class="colwidths-given docutils" id="id4">
+<caption><span class="caption-text">Tabela de Scripts que permitem chamadas externas</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="25%" />
 <col width="25%" />
@@ -391,7 +511,7 @@ em sua maioria como <code class="docutils literal notranslate"><span class="pre"
 </div>
 </div>
 <div class="section" id="instalacao-do-liquidsoap-com-encoders">
-<h1>Instalação do Liquidsoap com Encoders<a class="headerlink" href="#instalacao-do-liquidsoap-com-encoders" title="Permalink to this headline">¶</a></h1>
+<h2>Instalação do Liquidsoap com Encoders<a class="headerlink" href="#instalacao-do-liquidsoap-com-encoders" title="Permalink to this headline">¶</a></h2>
 <p>A aplicação assim como as dependências do liquidsoap são gerenciadas
 através do Package Manager Opam. Não instale o OPAM nem suas dependências
 como <cite>root</cite>, utilize o usuário que será usado para execução do S.O .</p>
@@ -409,17 +529,65 @@ como <cite>root</cite>, utilize o usuário que será usado para execução do S.
 <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">opam</span> <span class="pre">depext</span> <span class="pre">fdkaac</span> <span class="pre">&amp;&amp;</span> <span class="pre">opam</span> <span class="pre">install</span> <span class="pre">fdkaac</span></code></p>
 </div>
 <div class="section" id="dependencias-do-servidor">
-<h1>Dependências do Servidor<a class="headerlink" href="#dependencias-do-servidor" title="Permalink to this headline">¶</a></h1>
-<p>No projeto o Liquidsoap realiza chamadas externas para manipular as playlists
-e fazer a leitura das configurações da rádio. Essas chamadas se utilizam do <code class="docutils literal notranslate"><span class="pre">PHP</span></code>.
-O <code class="docutils literal notranslate"><span class="pre">MYSQL</span></code> também é uma dependência deste projeto e
-está sendo utilizado nas configurações da live do projeto.
-As dependências citadas nesta secção podem ser intaladas com os seguintes comandos:</p>
-<p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">sudo</span> <span class="pre">icecast2</span> <span class="pre">git</span> <span class="pre">python</span> <span class="pre">python-dev</span> <span class="pre">apache2</span> <span class="pre">php7.2</span> <span class="pre">php7.2-xml</span> <span class="pre">php7.2-simplexml</span> <span class="pre">php7.2-mysql</span> <span class="pre">mysql-server</span> <span class="pre">opam</span></code></p>
+<h2>Dependências do Servidor<a class="headerlink" href="#dependencias-do-servidor" title="Permalink to this headline">¶</a></h2>
+<p>As deste projeto podem ser instaladas com o seguinte comando:</p>
+<p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">sudo</span> <span class="pre">icecast2</span> <span class="pre">git</span> <span class="pre">python</span> <span class="pre">python-dev</span> <span class="pre">apache2</span> <span class="pre">php</span> <span class="pre">php-xml</span> <span class="pre">php-simplexml</span> <span class="pre">php-mysql</span>
+<span class="pre">mysql-server</span> <span class="pre">opam</span></code></p>
+</div>
+<div class="section" id="script-de-instalacao">
+<h2>Script de Instalação<a class="headerlink" href="#script-de-instalacao" title="Permalink to this headline">¶</a></h2>
+<p>O script de instalação foi desenvolvido para automatizar e auxiliar na instalação
+das ferramentas desta documentação e pode ser encontrado em .:</p>
+<p><a class="reference external" href="https://gitlab.com/rafaelbaiolim1/liquidsoap/tree/install">https://gitlab.com/rafaelbaiolim1/liquidsoap/tree/install</a></p>
+</div>
+</div>
 <div class="section" id="observacoes-pertinentes">
-<h2>Observações Pertinentes<a class="headerlink" href="#observacoes-pertinentes" title="Permalink to this headline">¶</a></h2>
+<h1>Observações Pertinentes<a class="headerlink" href="#observacoes-pertinentes" title="Permalink to this headline">¶</a></h1>
 <p>De preferência a usar caminhos absolutos para referenciar o caminho dos arquivos,
 tanto no arquivo JSON quanto nos parâmetros de script.</p>
+</div>
+<div class="section" id="solucoes-conhecidas">
+<h1>Soluções Conhecidas<a class="headerlink" href="#solucoes-conhecidas" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="problema-de-leitura-dos-arquivos-xml">
+<h2>Problema de Leitura dos Arquivos XML<a class="headerlink" href="#problema-de-leitura-dos-arquivos-xml" title="Permalink to this headline">¶</a></h2>
+<p><em>solução&gt;</em> <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">chmod</span> <span class="pre">777</span> <span class="pre">-R</span> <span class="pre">/home/streaming/configs/</span></code></p>
+</div>
+<div class="section" id="falta-de-memoria-no-servidor-para-instalcao-do-opam">
+<h2>Falta de memória no servidor para instalção do OPAM<a class="headerlink" href="#falta-de-memoria-no-servidor-para-instalcao-do-opam" title="Permalink to this headline">¶</a></h2>
+<p><em>solução&gt;</em> Crie um arquivo de swap temporário com os seguintes comandos:</p>
+<ol class="arabic simple">
+<li><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">dd</span> <span class="pre">if=/dev/zero</span> <span class="pre">of=/swapfile1</span> <span class="pre">bs=1024</span> <span class="pre">count=524288</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">mkswap</span> <span class="pre">/swapfile1</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">chown</span> <span class="pre">root:root</span> <span class="pre">/swapfile1</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">chmod</span> <span class="pre">0600</span> <span class="pre">/swapfile1</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">swapon</span> <span class="pre">/swapfile1</span></code></li>
+</ol>
+<p>Lembrando que se isso ocorrer ao realizar o login será necessário atualizar
+as variavéis de ambiente para o opam ser reconhecido, use o comando a seguir:</p>
+<p><code class="docutils literal notranslate"><span class="pre">eval</span> <span class="pre">`opam</span> <span class="pre">config</span> <span class="pre">env`</span> <span class="pre">&amp;&amp;</span> <span class="pre">source</span> <span class="pre">~/.profile</span></code></p>
+</div>
+<div class="section" id="grupo-de-usuario-sem-permissao-no-liquidsoap">
+<h2>Grupo de usuário sem permissão no Liquidsoap<a class="headerlink" href="#grupo-de-usuario-sem-permissao-no-liquidsoap" title="Permalink to this headline">¶</a></h2>
+<p><em>solução&gt;</em> Verifique no <code class="docutils literal notranslate"><span class="pre">xml</span> <span class="pre">de</span> <span class="pre">configuração</span> <span class="pre">do</span> <span class="pre">icecast2</span></code> se existe a seguinte chave:</p>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span>&lt;security&gt;
+    &lt;chroot&gt;0&lt;/chroot&gt;
+    &lt;changeowner&gt;
+        &lt;user&gt;icecast2&lt;/user&gt;
+        &lt;group&gt;icecast&lt;/group&gt;
+    &lt;/changeowner&gt;
+&lt;/security&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="habilitar-conexao-remota-mysql">
+<h2>Habilitar Conexão Remota MYSQL<a class="headerlink" href="#habilitar-conexao-remota-mysql" title="Permalink to this headline">¶</a></h2>
+<p><em>solução&gt;</em></p>
+<ol class="arabic simple">
+<li><code class="docutils literal notranslate"><span class="pre">$mysql</span> <span class="pre">-u</span> <span class="pre">root</span> <span class="pre">-p</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">GRANT</span> <span class="pre">ALL</span> <span class="pre">PRIVILEGES</span> <span class="pre">ON</span> <span class="pre">*.*</span> <span class="pre">TO</span> <span class="pre">'root'&#64;'%'</span> <span class="pre">IDENTIFIED</span> <span class="pre">BY</span> <span class="pre">'SENHA_DO_ROOT'</span> <span class="pre">WITH</span> <span class="pre">GRANT</span> <span class="pre">OPTION;</span> <span class="pre">FLUSH</span> <span class="pre">PRIVILEGES;</span></code></li>
+<li>Edite o arquivo: <code class="docutils literal notranslate"><span class="pre">/etc/mysql/mysql.conf.d/mysqld.cnf</span></code>&gt; #bind-address = 127.0.0.1</li>
+<li><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">service</span> <span class="pre">mysql</span> <span class="pre">restart</span></code></li>
+</ol>
 </div>
 </div>
 

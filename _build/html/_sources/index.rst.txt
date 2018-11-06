@@ -13,9 +13,69 @@ para reinstalar e manipular o projeto em questão.
    :maxdepth: 2
    :caption: Contents:
 
+Instalação
+======================================
+1. ``git clone https://gitlab.com/rafaelbaiolim1/liquidsoap.git -b install``
+2. ``sudo -H -u streaming bash -c "./make.sh"``
+3. ``sudo mkdir /var/run/liquidsoap && sudo chown streaming:streaming /var/run/liquidsoap``
+4. ``echo "create database `stream_cast`" | mysql -u <username> -p``
+5. ``cd /home/streaming/web/assets/ && mysql -u <username> -p stream_cast < locutores.sql"`` 
+
+Testes
+======================================
+
+Geração e Teste (Porta 8000)
+----------------------------
+O IP da máquina é associado automaticamente em ``src.config.generator.php``.  
+
+1. ``cd /home/streaming``
+2. ``php web/app/utils/src.config.generator.php``
+3. ``sudo chmod 777 -R /home/streaming/configs``
+4. ``sudo killall icecast2``
+5. ``sudo icecast2 -c configs/8000.xml -b``
+6. ``sh scripts/ligar_autodj 8000``
+7. ``sudo chmod 777 -R /home/streaming/configs``
+
+Live
+-----------
+Por padrão o script gera a *live* na porta seguinte ``(porta + 1)``.
+``Não é possível colocar a live e a rádio na mesma porta``.
+As configurações para conexão do *DJ* na rádio da porta ``8000`` 
+pode ser configurada na ferramenta Butt como na figura abaixo.
+
+.. image:: live-example.png
+  :width: 200
+  :height: 280
+  :alt: Butt Config Live
+  :align: center
+
+Os dados desta autenticação estão na tabela de ``'locutores' do banco MYSQL``, importada no passo de instação.
+A tabela usada para testes deve conter os seguintes registros após importada: 
+
+.. csv-table:: Registro de teste da tabela locutores
+   :file: locutores.csv
+   :header-rows: 1 
+
+``Note que é necessário que as flags de schedule, bem como os horários de streaming estejam setadas 
+corretamente para a autenticação ocorrer corretamente``
+
+Explicações Detalhadas
+======================================
+
+Iniciando a aplicação
+----------------------------
+A partir do root é possivel inicializar o programa usando o script `ligar_autodj`,
+execute .:
+
+``sudo su - streaming scripts/ligar_autodj $1 $2``
+
+``$1 (parâmetro obrigatório) : porta icecast2``
+
+``$2 (parâmetro opcional, mostra o log do liquidsoap) : TRUE``
+
 
 Manipulação e Execução do Projeto 
-======================================
+----------------------------
 A elaboração deste projeto foi adaptada a partir da sua versão inicial, substituindo 
 a ferramenta ICES por Liquidsoap. Para rodar o autodj é necessário que os seguintes 
 processos sejam executados.:
@@ -31,10 +91,10 @@ processos sejam executados.:
 Executando Liquidsoap
 #####################
 Com a ferramenta devidamente instalada, veja a secção :ref:`Instalação do Liquidsoap com Encoders`
-se necessário, execute o script ``web/app.dist.liq`` utilizando como parâmetro o caminho arquivo 
-.conf que a principio era utilizado pelo ICES. Ex.:
+se necessário, execute o script ``web/app.dist.liq`` utilizando como parâmetro a porta em que o `icecast2` 
+está executando Ex.:
 
-``$ liquidsoap app.dist.liq -- /home/streaming/web/app/config/liquid.conf.dist``
+``$ liquidsoap app.dist.liq -- $porta``
 
 ``--`` É necessário para informar ao liquid que as linhas seguintes referem-se a parâmetros 
 do script. A partir deste ponto o liquidsoap já estará rodando e transmitindo a rádio através 
@@ -83,7 +143,7 @@ em sua maioria como ``$php + _nome-do-script``.
    :header-rows: 1
 
 Instalação do Liquidsoap com Encoders
-======================================
+----------------------------
 A aplicação assim como as dependências do liquidsoap são gerenciadas 
 através do Package Manager Opam. Não instale o OPAM nem suas dependências
 como `root`, utilize o usuário que será usado para execução do S.O .
@@ -105,16 +165,62 @@ Para instalar: ``$ opam install taglib mad lame vorbis cry ssl samplerate magic 
 ``$ opam depext fdkaac && opam install fdkaac``
 
 Dependências do Servidor
-======================================
-No projeto o Liquidsoap realiza chamadas externas para manipular as playlists
-e fazer a leitura das configurações da rádio. Essas chamadas se utilizam do ``PHP``. 
-O ``MYSQL`` também é uma dependência deste projeto e 
-está sendo utilizado nas configurações da live do projeto. 
-As dependências citadas nesta secção podem ser intaladas com os seguintes comandos:  
+----------------------------
 
-``$ sudo icecast2 git python python-dev apache2 php7.2 php7.2-xml php7.2-simplexml php7.2-mysql mysql-server opam``
+As deste projeto podem ser instaladas com o seguinte comando:  
+
+``$ sudo icecast2 git python python-dev apache2 php php-xml php-simplexml php-mysql 
+mysql-server opam``
+
+Script de Instalação
+----------------------------
+
+O script de instalação foi desenvolvido para automatizar e auxiliar na instalação
+das ferramentas desta documentação e pode ser encontrado em .:
+
+https://gitlab.com/rafaelbaiolim1/liquidsoap/tree/install
+
 
 Observações Pertinentes
-#####################
+=========================
+
 De preferência a usar caminhos absolutos para referenciar o caminho dos arquivos,
 tanto no arquivo JSON quanto nos parâmetros de script.
+
+Soluções Conhecidas
+===================
+
+Problema de Leitura dos Arquivos XML
+------------------------------------
+*solução>* ``sudo chmod 777 -R /home/streaming/configs/``
+
+Falta de memória no servidor para instalção do OPAM
+-----------------------------------------------------
+*solução>* Crie um arquivo de swap temporário com os seguintes comandos:
+
+1. ``sudo dd if=/dev/zero of=/swapfile1 bs=1024 count=524288``
+2. ``sudo mkswap /swapfile1``
+3. ``sudo chown root:root /swapfile1``
+4. ``sudo chmod 0600 /swapfile1``
+5. ``sudo swapon /swapfile1``
+
+Lembrando que se isso ocorrer ao realizar o login será necessário atualizar
+as variavéis de ambiente para o opam ser reconhecido, use o comando a seguir:
+
+``eval `opam config env` && source ~/.profile``
+
+Grupo de usuário sem permissão no Liquidsoap
+--------------------------------------------
+*solução>* Verifique no ``xml de configuração do icecast2`` se existe a seguinte chave: 
+
+.. literalinclude:: solucoes.permissaoliquid.xml
+  :language: JSON
+
+Habilitar Conexão Remota MYSQL
+--------------------------------
+*solução>*
+
+1. ``$mysql -u root -p``
+2. ``GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'SENHA_DO_ROOT' WITH GRANT OPTION; FLUSH PRIVILEGES;``
+3. Edite o arquivo: ``/etc/mysql/mysql.conf.d/mysqld.cnf``> #bind-address = 127.0.0.1
+4. ``sudo service mysql restart``

@@ -1,0 +1,2 @@
+id,port,mount_point,login,password,schedule_sun,schedule_mon,schedule_tue,schedule_wed,schedule_thu,schedule_fri,schedule_sat,hour_period_start,hour_period_end,timezone
+1,8001,live,rafael,81dd408b0131533ffc9dc26a3317ab57c1e20e2d,1,1,1,1,1,1,1,00:01:00,23:59:00,America/Sao_Paulo
