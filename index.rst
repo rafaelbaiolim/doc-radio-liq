@@ -16,7 +16,7 @@ para reinstalar e manipular o projeto em questão.
 Instalação
 ======================================
 1. ``git clone https://gitlab.com/rafaelbaiolim1/liquidsoap.git -b install setup``
-2. ``cd setup && ./install.sh``
+2. ``cd setup && sudo ./install.sh``
 3. ``sudo mkdir /var/run/liquidsoap && sudo chown streaming:streaming /var/run/liquidsoap``
 4. ``sudo su streaming``
 5. ``source ~/.profile``
