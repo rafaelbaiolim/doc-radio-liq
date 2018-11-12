@@ -1,8 +1,19 @@
 Chave, Observações
 <Stream><Server>, X
-<Mountpoint>, X
+<Mountpoint>, Ponto de montagem principal
+<fallback-mount>, Fallback do ponto principal (precisa ter uma segunda tag de <mount> setada no XML do icecast2)
+<shoutcast-mountpoint>, Ponto de montagem de conexão da live para o DJ
+<shoutcast-port>, Porta para conexão do DJ. Não pode ser igual a porta do ponto de montagem
 <Genre>, X
 <Description>, X
-<Bitrate>, X
+<Bitrate>, 96; 128; 192; 256 ou 320
 <Encode>, MP3/AAC
-<Playlist><File>, X
+<Playlist><File>, Caminho da playlist json; com os respectivos caminhos dos audios.
+<Logfile>, TRUE ou FALSE 
+<Loglevel>, Idica o nível de log desejado; intervalo entre 0 e 3
+<User>, Usuário setado na config. do icecast2
+<Password>, Senha setada na config. do icecast2
+<Crossfade><Fadein>, (float) Tempo do fade incial
+<Crossfade><Fadeout>, (float) Tempo do fade final
+<Crossfade><Startnext>, (float) Ponto do audio que o fade inicia
+      

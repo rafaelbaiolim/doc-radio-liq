@@ -15,11 +15,22 @@ para reinstalar e manipular o projeto em questão.
 
 Instalação
 ======================================
-1. ``git clone https://gitlab.com/rafaelbaiolim1/liquidsoap.git -b install``
-2. ``sudo -H -u streaming bash -c "./make.sh"``
+*Se já houver uma instalação antiga da rádio, execute o seguinte comando antes de prosseguir:*
+``sudo rm -r /home/streaming/.opam``
+
+1. ``git clone https://gitlab.com/rafaelbaiolim1/liquidsoap.git -b install setup``
+2. ``cd setup && sudo ./install.sh``
 3. ``sudo mkdir /var/run/liquidsoap && sudo chown streaming:streaming /var/run/liquidsoap``
-4. ``echo "create database `stream_cast`" | mysql -u <username> -p``
-5. ``cd /home/streaming/web/assets/ && mysql -u <username> -p stream_cast < locutores.sql"`` 
+4. ``sudo su streaming``
+5. ``source ~/.profile``
+6. ``echo "create database `stream_cast`" | mysql -u <username> -p``
+7. ``cd /home/streaming/web/assets/ && mysql -u <username> -p stream_cast < locutores.sql"`` 
+
+Verificação
+======================================
+Antes de prosseguir com os teste, verifique se a pasta ``/home/streaming/.opam/system`` 
+foi criada, uma vez que o ``liquidsoap`` é iniciado a partir do ``bin`` desta pasta.
+
 
 Testes
 ======================================
@@ -32,16 +43,17 @@ O IP da máquina é associado automaticamente em ``src.config.generator.php``.
 2. ``php web/app/utils/src.config.generator.php``
 3. ``sudo chmod 777 -R /home/streaming/configs``
 4. ``sudo killall icecast2``
-5. ``sudo icecast2 -c configs/8000.xml -b``
-6. ``sh scripts/ligar_autodj 8000``
-7. ``sudo chmod 777 -R /home/streaming/configs``
+5. ``sudo killall liquidsoap``
+6. ``sudo icecast2 -c configs/8000.xml -b``
+7. ``sh scripts/ligar_autodj 8000 1``
+8. ``sudo chmod 777 -R /home/streaming/configs``
 
 Live
 -----------
 Por padrão o script gera a *live* na porta seguinte ``(porta + 1)``.
 ``Não é possível colocar a live e a rádio na mesma porta``.
 As configurações para conexão do *DJ* na rádio da porta ``8000`` 
-pode ser configurada na ferramenta Butt como na figura abaixo.
+pode ser configurada na ferramenta ``Butt`` como na figura abaixo.
 
 .. image:: live-example.png
   :width: 200
@@ -50,7 +62,7 @@ pode ser configurada na ferramenta Butt como na figura abaixo.
   :align: center
 
 Os dados desta autenticação estão na tabela de ``'locutores' do banco MYSQL``, importada no passo de instação.
-A tabela usada para testes deve conter os seguintes registros após importada: 
+A tabela usada para testes deve conter os seguintes registros para que o ``brodcast`` da ``live`` na porta ``8000`` funcione: 
 
 .. csv-table:: Registro de teste da tabela locutores
    :file: locutores.csv
@@ -70,7 +82,9 @@ execute .:
 
 ``$1 (parâmetro obrigatório) : porta icecast2``
 
-``$2 (parâmetro opcional, mostra o log do liquidsoap) : TRUE``
+``$2 (parâmetro opcional, executa a saída do liquidsoap em primeiro plano) : TRUE``
+*Os logs do liquidsoap estão habilitados para geração em arquivo e por padrão começam desabilitados. 
+Para ativar os logs veja a secção de configuração do XML do Liquid.* 
 
 
 Manipulação e Execução do Projeto 
@@ -85,10 +99,12 @@ processos sejam executados.:
 
 3. Script do Liquidsoap apontando para as config. do Icecast.
 
-4. JSON da playlist com o formato que será apresentado.
+4. JSON da playlist com o formato que será apresentado. Assim como o caminho dos arquivos de 
+audio setados corretamente.
 
 Executando Liquidsoap
 #####################
+
 Com a ferramenta devidamente instalada, veja a secção :ref:`Instalação do Liquidsoap com Encoders`
 se necessário, execute o script ``web/app.dist.liq`` utilizando como parâmetro a porta em que o `icecast2` 
 está executando Ex.:
@@ -105,16 +121,25 @@ Para manter a compatibilidade com a versão inicial deste projeto foi implementa
 presentes no arquivo de configuração XML dos clientes do autodj. O arquivo a seguir foi utilizado 
 para realizar os testes no servidor.
 
-.. literalinclude:: conf.example.xml
+.. literalinclude:: conf.example.xml 
   :language: JSON
 
 Nem todos os atributos deste arquivo são utilizados pelo script do Liquidsoap, mas podem ser mantidos 
-como linguagem de marcação. Segue os atributos obrigatórios para o funcionamento do script.
+como linguagem de marcação. Embora existam tags encadeadas como por exemplo : "<Audio>..</Audio>", as tags mais externas 
+não são consideradas pelo script, dessa forma apenas as tags com valor atribuido são processadas, como por exemplo "<Fadein>0</Fadein>". 
+Segue os atributos com suas descrições.
 
 .. csv-table:: Tabela de atributos obrigatórios Conf.xml
    :file: conf-strct.csv
    :widths: 30, 70
    :header-rows: 1
+
+
+Arquivo XML de configuração exemplo Icecast2
+#############################################
+
+.. literalinclude:: icecast2.example.xml 
+  :language: JSON
 
 Arquivo JSON da playlist
 #####################

@@ -5,8 +5,13 @@
     <Randomize>1</Randomize>
     <Type>builtin</Type>
     <Module>ices</Module>
-    <Crossfade>5</Crossfade>
   </Playlist>
+  <Radio>
+      <Name>Default stream</Name>
+      <Genre>Default genre</Genre>
+      <Description>Default description</Description>
+      <URL>http://localhost/</URL>
+  </Radio>
   <Stream>
     <Server>
       <Hostname>45.32.203.142</Hostname>
@@ -15,16 +20,26 @@
       <Password>hackme</Password>
       <Protocol>http</Protocol>
     </Server>
-    <Mountpoint>/ao</Mountpoint>
-    <Name>Default stream</Name>
-    <Genre>Default genre</Genre>
-    <Description>Default description</Description>
-    <URL>http://localhost/</URL>
-    <Public>0</Public>
-    <Bitrate>128</Bitrate>
-    <Encode>AAC</Encode>
-    <Reencode>0</Reencode>
-    <Samplerate>44100</Samplerate>
-    <Channels>2</Channels>
+    <Mountpoint>/live</Mountpoint>
+    <fallback-mount>/autodj</fallback-mount>
+    <Shoucast>
+      <shoutcast-mountpoint>/live</shoutcast-mountpoint>
+      <shoutcast-port>8001</shoutcast-port>
+    </Shoucast>
+    <Log>
+      <Logfile>true</Logfile>
+      <Loglevel>3</Loglevel>
+    </Log>
+    <Audio>
+      <Public>0</Public>
+      <Codec>AAC</Codec>
+      <Bitrate>128</Bitrate>
+      <Channels>2</Channels>
+      <Crossfade>
+        <Fadein>0.</Fadein>
+        <Fadeout>0.</Fadeout>
+        <Startnext>0.</Startnext>
+      </Crossfade>
+    </Audio>
   </Stream>
 </ices:Configuration>

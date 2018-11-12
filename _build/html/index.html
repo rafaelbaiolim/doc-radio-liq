@@ -84,6 +84,7 @@
               <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">Documentação Rádio c/ Liquidsoap</a></li>
 <li><a class="reference internal" href="#instalacao">Instalação</a></li>
+<li><a class="reference internal" href="#verificacao">Verificação</a></li>
 <li><a class="reference internal" href="#testes">Testes</a><ul>
 <li><a class="reference internal" href="#geracao-e-teste-porta-8000">Geração e Teste (Porta 8000)</a></li>
 <li><a class="reference internal" href="#live">Live</a></li>
@@ -94,6 +95,7 @@
 <li><a class="reference internal" href="#manipulacao-e-execucao-do-projeto">Manipulação e Execução do Projeto</a><ul>
 <li><a class="reference internal" href="#executando-liquidsoap">Executando Liquidsoap</a></li>
 <li><a class="reference internal" href="#arquivo-xml-de-configuracao-do-liquidsoap">Arquivo XML de configuração do Liquidsoap</a></li>
+<li><a class="reference internal" href="#arquivo-xml-de-configuracao-exemplo-icecast2">Arquivo XML de configuração exemplo Icecast2</a></li>
 <li><a class="reference internal" href="#arquivo-json-da-playlist">Arquivo JSON da playlist</a></li>
 <li><a class="reference internal" href="#scripts-para-manipulacao-da-playlist">Scripts para Manipulação da Playlist</a></li>
 </ul>
@@ -185,13 +187,22 @@ para reinstalar e manipular o projeto em questão.</p>
 </div>
 <div class="section" id="instalacao">
 <h1>Instalação<a class="headerlink" href="#instalacao" title="Permalink to this headline">¶</a></h1>
+<p><em>Se já houver uma instalação antiga da rádio, execute o seguinte comando antes de prosseguir:</em>
+<code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">rm</span> <span class="pre">-r</span> <span class="pre">/home/streaming/.opam</span></code></p>
 <ol class="arabic simple">
-<li><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://gitlab.com/rafaelbaiolim1/liquidsoap.git</span> <span class="pre">-b</span> <span class="pre">install</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">-H</span> <span class="pre">-u</span> <span class="pre">streaming</span> <span class="pre">bash</span> <span class="pre">-c</span> <span class="pre">&quot;./make.sh&quot;</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://gitlab.com/rafaelbaiolim1/liquidsoap.git</span> <span class="pre">-b</span> <span class="pre">install</span> <span class="pre">setup</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">setup</span> <span class="pre">&amp;&amp;</span> <span class="pre">sudo</span> <span class="pre">./install.sh</span></code></li>
 <li><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">mkdir</span> <span class="pre">/var/run/liquidsoap</span> <span class="pre">&amp;&amp;</span> <span class="pre">sudo</span> <span class="pre">chown</span> <span class="pre">streaming:streaming</span> <span class="pre">/var/run/liquidsoap</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">su</span> <span class="pre">streaming</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">~/.profile</span></code></li>
 <li><code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">&quot;create</span> <span class="pre">database</span> <span class="pre">`stream_cast`&quot;</span> <span class="pre">|</span> <span class="pre">mysql</span> <span class="pre">-u</span> <span class="pre">&lt;username&gt;</span> <span class="pre">-p</span></code></li>
 <li><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/home/streaming/web/assets/</span> <span class="pre">&amp;&amp;</span> <span class="pre">mysql</span> <span class="pre">-u</span> <span class="pre">&lt;username&gt;</span> <span class="pre">-p</span> <span class="pre">stream_cast</span> <span class="pre">&lt;</span> <span class="pre">locutores.sql&quot;</span></code></li>
 </ol>
+</div>
+<div class="section" id="verificacao">
+<h1>Verificação<a class="headerlink" href="#verificacao" title="Permalink to this headline">¶</a></h1>
+<p>Antes de prosseguir com os teste, verifique se a pasta <code class="docutils literal notranslate"><span class="pre">/home/streaming/.opam/system</span></code>
+foi criada, uma vez que o <code class="docutils literal notranslate"><span class="pre">liquidsoap</span></code> é iniciado a partir do <code class="docutils literal notranslate"><span class="pre">bin</span></code> desta pasta.</p>
 </div>
 <div class="section" id="testes">
 <h1>Testes<a class="headerlink" href="#testes" title="Permalink to this headline">¶</a></h1>
@@ -203,8 +214,9 @@ para reinstalar e manipular o projeto em questão.</p>
 <li><code class="docutils literal notranslate"><span class="pre">php</span> <span class="pre">web/app/utils/src.config.generator.php</span></code></li>
 <li><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">chmod</span> <span class="pre">777</span> <span class="pre">-R</span> <span class="pre">/home/streaming/configs</span></code></li>
 <li><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">killall</span> <span class="pre">icecast2</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">killall</span> <span class="pre">liquidsoap</span></code></li>
 <li><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">icecast2</span> <span class="pre">-c</span> <span class="pre">configs/8000.xml</span> <span class="pre">-b</span></code></li>
-<li><code class="docutils literal notranslate"><span class="pre">sh</span> <span class="pre">scripts/ligar_autodj</span> <span class="pre">8000</span></code></li>
+<li><code class="docutils literal notranslate"><span class="pre">sh</span> <span class="pre">scripts/ligar_autodj</span> <span class="pre">8000</span> <span class="pre">1</span></code></li>
 <li><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">chmod</span> <span class="pre">777</span> <span class="pre">-R</span> <span class="pre">/home/streaming/configs</span></code></li>
 </ol>
 </div>
@@ -213,10 +225,10 @@ para reinstalar e manipular o projeto em questão.</p>
 <p>Por padrão o script gera a <em>live</em> na porta seguinte <code class="docutils literal notranslate"><span class="pre">(porta</span> <span class="pre">+</span> <span class="pre">1)</span></code>.
 <code class="docutils literal notranslate"><span class="pre">Não</span> <span class="pre">é</span> <span class="pre">possível</span> <span class="pre">colocar</span> <span class="pre">a</span> <span class="pre">live</span> <span class="pre">e</span> <span class="pre">a</span> <span class="pre">rádio</span> <span class="pre">na</span> <span class="pre">mesma</span> <span class="pre">porta</span></code>.
 As configurações para conexão do <em>DJ</em> na rádio da porta <code class="docutils literal notranslate"><span class="pre">8000</span></code>
-pode ser configurada na ferramenta Butt como na figura abaixo.</p>
+pode ser configurada na ferramenta <code class="docutils literal notranslate"><span class="pre">Butt</span></code> como na figura abaixo.</p>
 <a class="reference internal image-reference" href="_images/live-example.png"><img alt="Butt Config Live" class="align-center" src="_images/live-example.png" style="width: 200px; height: 280px;" /></a>
 <p>Os dados desta autenticação estão na tabela de <code class="docutils literal notranslate"><span class="pre">'locutores'</span> <span class="pre">do</span> <span class="pre">banco</span> <span class="pre">MYSQL</span></code>, importada no passo de instação.
-A tabela usada para testes deve conter os seguintes registros após importada:</p>
+A tabela usada para testes deve conter os seguintes registros para que o <code class="docutils literal notranslate"><span class="pre">brodcast</span></code> da <code class="docutils literal notranslate"><span class="pre">live</span></code> na porta <code class="docutils literal notranslate"><span class="pre">8000</span></code> funcione:</p>
 <table border="1" class="docutils" id="id1">
 <caption><span class="caption-text">Registro de teste da tabela locutores</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
 <colgroup>
@@ -284,7 +296,9 @@ A tabela usada para testes deve conter os seguintes registros após importada:</
 execute .:</p>
 <p><code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">su</span> <span class="pre">-</span> <span class="pre">streaming</span> <span class="pre">scripts/ligar_autodj</span> <span class="pre">$1</span> <span class="pre">$2</span></code></p>
 <p><code class="docutils literal notranslate"><span class="pre">$1</span> <span class="pre">(parâmetro</span> <span class="pre">obrigatório)</span> <span class="pre">:</span> <span class="pre">porta</span> <span class="pre">icecast2</span></code></p>
-<p><code class="docutils literal notranslate"><span class="pre">$2</span> <span class="pre">(parâmetro</span> <span class="pre">opcional,</span> <span class="pre">mostra</span> <span class="pre">o</span> <span class="pre">log</span> <span class="pre">do</span> <span class="pre">liquidsoap)</span> <span class="pre">:</span> <span class="pre">TRUE</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">$2</span> <span class="pre">(parâmetro</span> <span class="pre">opcional,</span> <span class="pre">executa</span> <span class="pre">a</span> <span class="pre">saída</span> <span class="pre">do</span> <span class="pre">liquidsoap</span> <span class="pre">em</span> <span class="pre">primeiro</span> <span class="pre">plano)</span> <span class="pre">:</span> <span class="pre">TRUE</span></code>
+<em>Os logs do liquidsoap estão habilitados para geração em arquivo e por padrão começam desabilitados.
+Para ativar os logs veja a secção de configuração do XML do Liquid.</em></p>
 </div>
 <div class="section" id="manipulacao-e-execucao-do-projeto">
 <h2>Manipulação e Execução do Projeto<a class="headerlink" href="#manipulacao-e-execucao-do-projeto" title="Permalink to this headline">¶</a></h2>
@@ -295,8 +309,9 @@ processos sejam executados.:</p>
 <li>Banco MySQL com os dados importados para autenticação das lives.</li>
 <li>Icecast2 com sua respectiva config. (Playlist e Live)</li>
 <li>Script do Liquidsoap apontando para as config. do Icecast.</li>
-<li>JSON da playlist com o formato que será apresentado.</li>
 </ol>
+<p>4. JSON da playlist com o formato que será apresentado. Assim como o caminho dos arquivos de
+audio setados corretamente.</p>
 <div class="section" id="executando-liquidsoap">
 <h3>Executando Liquidsoap<a class="headerlink" href="#executando-liquidsoap" title="Permalink to this headline">¶</a></h3>
 <p>Com a ferramenta devidamente instalada, veja a secção <a class="reference internal" href="#instalacao-do-liquidsoap-com-encoders"><span class="std std-ref">Instalação do Liquidsoap com Encoders</span></a>
@@ -319,8 +334,13 @@ para realizar os testes no servidor.</p>
     &lt;Randomize&gt;1&lt;/Randomize&gt;
     &lt;Type&gt;builtin&lt;/Type&gt;
     &lt;Module&gt;ices&lt;/Module&gt;
-    &lt;Crossfade&gt;5&lt;/Crossfade&gt;
   &lt;/Playlist&gt;
+  &lt;Radio&gt;
+      &lt;Name&gt;Default stream&lt;/Name&gt;
+      &lt;Genre&gt;Default genre&lt;/Genre&gt;
+      &lt;Description&gt;Default description&lt;/Description&gt;
+      &lt;URL&gt;http://localhost/&lt;/URL&gt;
+  &lt;/Radio&gt;
   &lt;Stream&gt;
     &lt;Server&gt;
       &lt;Hostname&gt;45.32.203.142&lt;/Hostname&gt;
@@ -329,23 +349,35 @@ para realizar os testes no servidor.</p>
       &lt;Password&gt;hackme&lt;/Password&gt;
       &lt;Protocol&gt;http&lt;/Protocol&gt;
     &lt;/Server&gt;
-    &lt;Mountpoint&gt;/ao&lt;/Mountpoint&gt;
-    &lt;Name&gt;Default stream&lt;/Name&gt;
-    &lt;Genre&gt;Default genre&lt;/Genre&gt;
-    &lt;Description&gt;Default description&lt;/Description&gt;
-    &lt;URL&gt;http://localhost/&lt;/URL&gt;
-    &lt;Public&gt;0&lt;/Public&gt;
-    &lt;Bitrate&gt;128&lt;/Bitrate&gt;
-    &lt;Encode&gt;AAC&lt;/Encode&gt;
-    &lt;Reencode&gt;0&lt;/Reencode&gt;
-    &lt;Samplerate&gt;44100&lt;/Samplerate&gt;
-    &lt;Channels&gt;2&lt;/Channels&gt;
+    &lt;Mountpoint&gt;/live&lt;/Mountpoint&gt;
+    &lt;fallback-mount&gt;/autodj&lt;/fallback-mount&gt;
+    &lt;Shoucast&gt;
+      &lt;shoutcast-mountpoint&gt;/live&lt;/shoutcast-mountpoint&gt;
+      &lt;shoutcast-port&gt;8001&lt;/shoutcast-port&gt;
+    &lt;/Shoucast&gt;
+    &lt;Log&gt;
+      &lt;Logfile&gt;true&lt;/Logfile&gt;
+      &lt;Loglevel&gt;3&lt;/Loglevel&gt;
+    &lt;/Log&gt;
+    &lt;Audio&gt;
+      &lt;Public&gt;0&lt;/Public&gt;
+      &lt;Codec&gt;AAC&lt;/Codec&gt;
+      &lt;Bitrate&gt;128&lt;/Bitrate&gt;
+      &lt;Channels&gt;2&lt;/Channels&gt;
+      &lt;Crossfade&gt;
+        &lt;Fadein&gt;0.&lt;/Fadein&gt;
+        &lt;Fadeout&gt;0.&lt;/Fadeout&gt;
+        &lt;Startnext&gt;0.&lt;/Startnext&gt;
+      &lt;/Crossfade&gt;
+    &lt;/Audio&gt;
   &lt;/Stream&gt;
 &lt;/ices:Configuration&gt;
 </pre></div>
 </div>
 <p>Nem todos os atributos deste arquivo são utilizados pelo script do Liquidsoap, mas podem ser mantidos
-como linguagem de marcação. Segue os atributos obrigatórios para o funcionamento do script.</p>
+como linguagem de marcação. Embora existam tags encadeadas como por exemplo : “&lt;Audio&gt;..&lt;/Audio&gt;”, as tags mais externas
+não são consideradas pelo script, dessa forma apenas as tags com valor atribuido são processadas, como por exemplo “&lt;Fadein&gt;0&lt;/Fadein&gt;”.
+Segue os atributos com suas descrições.</p>
 <table border="1" class="colwidths-given docutils" id="id2">
 <caption><span class="caption-text">Tabela de atributos obrigatórios Conf.xml</span><a class="headerlink" href="#id2" title="Permalink to this table">¶</a></caption>
 <colgroup>
@@ -362,25 +394,116 @@ como linguagem de marcação. Segue os atributos obrigatórios para o funcioname
 <td>X</td>
 </tr>
 <tr class="row-odd"><td>&lt;Mountpoint&gt;</td>
+<td>Ponto de montagem principal</td>
+</tr>
+<tr class="row-even"><td>&lt;fallback-mount&gt;</td>
+<td>Fallback do ponto principal (precisa ter uma segunda tag de &lt;mount&gt; setada no XML do icecast2)</td>
+</tr>
+<tr class="row-odd"><td>&lt;shoutcast-mountpoint&gt;</td>
+<td>Ponto de montagem de conexão da live para o DJ</td>
+</tr>
+<tr class="row-even"><td>&lt;shoutcast-port&gt;</td>
+<td>Porta para conexão do DJ. Não pode ser igual a porta do ponto de montagem</td>
+</tr>
+<tr class="row-odd"><td>&lt;Genre&gt;</td>
 <td>X</td>
 </tr>
-<tr class="row-even"><td>&lt;Genre&gt;</td>
+<tr class="row-even"><td>&lt;Description&gt;</td>
 <td>X</td>
 </tr>
-<tr class="row-odd"><td>&lt;Description&gt;</td>
-<td>X</td>
+<tr class="row-odd"><td>&lt;Bitrate&gt;</td>
+<td>96; 128; 192; 256 ou 320</td>
 </tr>
-<tr class="row-even"><td>&lt;Bitrate&gt;</td>
-<td>X</td>
-</tr>
-<tr class="row-odd"><td>&lt;Encode&gt;</td>
+<tr class="row-even"><td>&lt;Encode&gt;</td>
 <td>MP3/AAC</td>
 </tr>
-<tr class="row-even"><td>&lt;Playlist&gt;&lt;File&gt;</td>
-<td>X</td>
+<tr class="row-odd"><td>&lt;Playlist&gt;&lt;File&gt;</td>
+<td>Caminho da playlist json; com os respectivos caminhos dos audios.</td>
+</tr>
+<tr class="row-even"><td>&lt;Logfile&gt;</td>
+<td>TRUE ou FALSE</td>
+</tr>
+<tr class="row-odd"><td>&lt;Loglevel&gt;</td>
+<td>Idica o nível de log desejado; intervalo entre 0 e 3</td>
+</tr>
+<tr class="row-even"><td>&lt;User&gt;</td>
+<td>Usuário setado na config. do icecast2</td>
+</tr>
+<tr class="row-odd"><td>&lt;Password&gt;</td>
+<td>Senha setada na config. do icecast2</td>
+</tr>
+<tr class="row-even"><td>&lt;Crossfade&gt;&lt;Fadein&gt;</td>
+<td>(float) Tempo do fade incial</td>
+</tr>
+<tr class="row-odd"><td>&lt;Crossfade&gt;&lt;Fadeout&gt;</td>
+<td>(float) Tempo do fade final</td>
+</tr>
+<tr class="row-even"><td>&lt;Crossfade&gt;&lt;Startnext&gt;</td>
+<td>(float) Ponto do audio que o fade inicia</td>
+</tr>
+<tr class="row-odd"><td>&#160;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
+</div>
+<div class="section" id="arquivo-xml-de-configuracao-exemplo-icecast2">
+<h3>Arquivo XML de configuração exemplo Icecast2<a class="headerlink" href="#arquivo-xml-de-configuracao-exemplo-icecast2" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-JSON notranslate"><div class="highlight"><pre><span></span>&lt;icecast&gt;
+    &lt;location&gt;Maringa&lt;/location&gt;
+    &lt;admin&gt;suporte@livecast.com.br&lt;/admin&gt;
+    &lt;limits&gt;
+        &lt;clients&gt;99999&lt;/clients&gt;
+        &lt;sources&gt;2&lt;/sources&gt;
+        &lt;queue-size&gt;524288&lt;/queue-size&gt;
+        &lt;client-timeout&gt;30&lt;/client-timeout&gt;
+        &lt;header-timeout&gt;15&lt;/header-timeout&gt;
+        &lt;source-timeout&gt;10&lt;/source-timeout&gt;
+        &lt;burst-size&gt;65535&lt;/burst-size&gt;
+    &lt;/limits&gt;
+    &lt;authentication&gt;
+        &lt;source-password&gt;hackme&lt;/source-password&gt;
+        &lt;relay-password&gt;hackme&lt;/relay-password&gt;
+        &lt;admin-user&gt;source&lt;/admin-user&gt;
+        &lt;admin-password&gt;hackme&lt;/admin-password&gt;
+    &lt;/authentication&gt;
+    &lt;hostname&gt;192.168.15.10&lt;/hostname&gt;
+    &lt;listen-socket&gt;
+        &lt;port&gt;8000&lt;/port&gt;
+    &lt;/listen-socket&gt;
+    &lt;mount type=&quot;normal&quot;&gt;
+        &lt;mount-name&gt;/autodj&lt;/mount-name&gt;
+        &lt;charset&gt;UTF8&lt;/charset&gt;
+    &lt;/mount&gt;
+    &lt;mount type=&quot;normal&quot;&gt;
+        &lt;mount-name&gt;/live&lt;/mount-name&gt;
+        &lt;charset&gt;UTF8&lt;/charset&gt;
+    &lt;/mount&gt;
+    &lt;fileserve&gt;1&lt;/fileserve&gt;
+    &lt;paths&gt;
+        &lt;basedir&gt;/usr/local/share/icecast&lt;/basedir&gt;
+        &lt;webroot&gt;/usr/local/share/icecast/web&lt;/webroot&gt;
+        &lt;adminroot&gt;/usr/local/share/icecast/admin&lt;/adminroot&gt;
+        &lt;logdir&gt;/home/streaming/configs/8000&lt;/logdir&gt;
+        &lt;pidfile&gt;/home/streaming/configs/8000/icecast.pid&lt;/pidfile&gt;
+        &lt;alias source=&quot;/&quot; dest=&quot;/status.xsl&quot;/&gt;
+    &lt;/paths&gt;
+    &lt;logging&gt;
+        &lt;accesslog&gt;access8000.log&lt;/accesslog&gt;
+        &lt;errorlog&gt;error8000.log&lt;/errorlog&gt;
+        &lt;loglevel&gt;3&lt;/loglevel&gt;
+        &lt;logsize&gt;10000&lt;/logsize&gt;
+    &lt;/logging&gt;
+    &lt;security&gt;
+        &lt;chroot&gt;0&lt;/chroot&gt;
+        &lt;changeowner&gt;
+            &lt;user&gt;icecast2&lt;/user&gt;
+            &lt;group&gt;icecast&lt;/group&gt;
+        &lt;/changeowner&gt;
+    &lt;/security&gt;
+&lt;/icecast&gt;
+</pre></div>
+</div>
 </div>
 <div class="section" id="arquivo-json-da-playlist">
 <h3>Arquivo JSON da playlist<a class="headerlink" href="#arquivo-json-da-playlist" title="Permalink to this headline">¶</a></h3>
@@ -497,13 +620,18 @@ em sua maioria como <code class="docutils literal notranslate"><span class="pre"
 </tr>
 <tr class="row-odd"><td>app/service/playlist_stop.php</td>
 <td>Para a playlist em execução</td>
-<td>Pid Liquid (cli)</td>
-<td>X</td>
+<td>Porta de execução (cli)</td>
+<td>FALSE se ERROR</td>
 </tr>
 <tr class="row-even"><td>app/service/playlist_status.php</td>
 <td>Status das músicas da playlist</td>
 <td>Pid Liquid (cli)</td>
 <td>JSON</td>
+</tr>
+<tr class="row-odd"><td>app/service/playlist_next_song.php</td>
+<td>Pula música sem esperar o fim da execução (cli)</td>
+<td>Porta de execução</td>
+<td>FALSE se ERROR</td>
 </tr>
 </tbody>
 </table>
