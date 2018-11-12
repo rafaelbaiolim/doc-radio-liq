@@ -15,11 +15,13 @@ para reinstalar e manipular o projeto em questão.
 
 Instalação
 ======================================
-1. ``git clone https://gitlab.com/rafaelbaiolim1/liquidsoap.git -b install``
-2. ``sudo -H -u streaming bash -c "./make.sh"``
+1. ``git clone https://gitlab.com/rafaelbaiolim1/liquidsoap.git -b install setup``
+2. ``cd setup && ./install.sh``
 3. ``sudo mkdir /var/run/liquidsoap && sudo chown streaming:streaming /var/run/liquidsoap``
-4. ``echo "create database `stream_cast`" | mysql -u <username> -p``
-5. ``cd /home/streaming/web/assets/ && mysql -u <username> -p stream_cast < locutores.sql"`` 
+4. ``sudo su streaming``
+5. ``source ~/.profile``
+6. ``echo "create database `stream_cast`" | mysql -u <username> -p``
+7. ``cd /home/streaming/web/assets/ && mysql -u <username> -p stream_cast < locutores.sql"`` 
 
 Testes
 ======================================
