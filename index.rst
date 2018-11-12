@@ -35,7 +35,7 @@ O IP da máquina é associado automaticamente em ``src.config.generator.php``.
 3. ``sudo chmod 777 -R /home/streaming/configs``
 4. ``sudo killall icecast2``
 5. ``sudo icecast2 -c configs/8000.xml -b``
-6. ``sh scripts/ligar_autodj 8000``
+6. ``sh scripts/ligar_autodj 8000 1``
 7. ``sudo chmod 777 -R /home/streaming/configs``
 
 Live
