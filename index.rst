@@ -134,6 +134,10 @@ Segue os atributos com suas descrições.
    :widths: 30, 70
    :header-rows: 1
 
+O encoder AAC pode assumir os dois valores informados acima em `audio-obj-type`, 
+mpeg4_aac_lc é usado por padrão, a explicação desses valores podem ser encontradas em:
+
+http://wiki.hydrogenaud.io/index.php?title=Fraunhofer_FDK_AAC 
 
 Arquivo XML de configuração exemplo Icecast2
 #############################################

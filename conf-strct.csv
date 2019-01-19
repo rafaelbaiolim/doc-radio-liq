@@ -1,7 +1,7 @@
 Chave, Observações
 <Stream><Server>, X
 <Mountpoint>, Ponto de montagem principal
-<shoutcast-url>, Url com o ponto de montage da live ex.: http:://ip:porta/live
+<shoutcast-url>, Url com o ponto de montage da live ex.: http://ip:porta/live
 <Genre>, X
 <Description>, X
 <Bitrate>, 96; 128; 192; 256 ou 320
