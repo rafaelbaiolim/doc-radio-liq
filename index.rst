@@ -99,7 +99,9 @@ processos sejam executados.:
 
 3. Script do Liquidsoap apontando para as config. do Icecast.
 
-4. JSON da playlist com o formato que será apresentado. Assim como o caminho dos arquivos de 
+4. Servidor PHP rodando na pasta `web/app/` do projeto. 
+
+5. JSON da playlist com o formato que será apresentado. Assim como o caminho dos arquivos de 
 audio setados corretamente.
 
 Executando Liquidsoap
@@ -217,6 +219,16 @@ tanto no arquivo JSON quanto nos parâmetros de script.
 
 Soluções Conhecidas
 ===================
+
+Playlist reinicia do começo de cada música
+-------------------------------------------
+Arquivo XML do icecast2 não esta com memória alocada suficiente,
+tente aumentar o <burst-size>
+
+Autenticação no Mountpoint da live
+-------------------------------------------
+É provavel que o servidor PHP não esteja rodando, basta iniciar 
+ele pra que o popup de autenticação pare de aparecer.
 
 Problema de Leitura dos Arquivos XML
 ------------------------------------
