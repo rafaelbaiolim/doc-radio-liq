@@ -15,4 +15,3 @@ Chave, Observações
 <Crossfade><Fadein>, (float) Tempo do fade incial
 <Crossfade><Fadeout>, (float) Tempo do fade final
 <Crossfade><Startnext>, (float) Ponto do audio que o fade inicia
-      
