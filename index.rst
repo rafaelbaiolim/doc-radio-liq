@@ -223,7 +223,7 @@ Soluções Conhecidas
 Playlist reinicia do começo de cada música
 -------------------------------------------
 Arquivo XML do icecast2 não esta com memória alocada suficiente,
-tente aumentar o <burst-size>
+tente aumentar o <burst-size>.
 
 Autenticação no Mountpoint da live
 -------------------------------------------
