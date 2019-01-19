@@ -1,53 +1,83 @@
 <icecast>
     <location>Maringa</location>
-    <admin>suporte@livecast.com.br</admin>
+    <admin>icemaster@192.168.56.101</admin>
     <limits>
-        <clients>99999</clients>
+        <clients>100</clients>
         <sources>2</sources>
         <queue-size>524288</queue-size>
         <client-timeout>30</client-timeout>
         <header-timeout>15</header-timeout>
         <source-timeout>10</source-timeout>
+        <burst-on-connect>1</burst-on-connect>
         <burst-size>65535</burst-size>
     </limits>
+
     <authentication>
         <source-password>hackme</source-password>
-        <relay-password>hackme</relay-password>
-        <admin-user>source</admin-user>
+        <relay-password>hackme</relay-password>        
+        <admin-user>admin</admin-user>
         <admin-password>hackme</admin-password>
     </authentication>
-    <hostname>192.168.15.10</hostname>
+
+    <hostname>192.168.56.101</hostname>
+
     <listen-socket>
         <port>8000</port>
+        <bind-address>192.168.56.101</bind-address> 
     </listen-socket>
-    <mount type="normal">
-        <mount-name>/autodj</mount-name>
-        <charset>UTF8</charset>
-    </mount>
-    <mount type="normal">
-        <mount-name>/live</mount-name>
-        <charset>UTF8</charset>
-    </mount>
+
+	<mount type="normal">
+		<mount-name>/autodj</mount-name>
+		<charset>ISO8859-1</charset>
+		<public>1</public>
+		<stream-name>Radio</stream-name>
+		<stream-description>autodj</stream-description>
+		<stream-url>http://192.168.56.101:8000/</stream-url>
+		<genre>Various</genre>
+		<bitrate>64</bitrate>
+		<type>application/mp3</type>
+	</mount>
+	<mount type="normal">
+		<mount-name>/live</mount-name>
+		<fallback-mount>/autodj</fallback-mount>
+		<fallback-override>1</fallback-override>
+		<fallback-when-full>1</fallback-when-full>
+		<bitrate>64</bitrate>
+		<type>application/mp3</type>
+        <authentication type="url">
+            <option name="mount_add" value="http://192.168.56.101:8090/service/stream_start.php"/>
+            <option name="mount_remove" value="http://192.168.56.101:8090/service/stream_end.php"/>
+            <option name="listener_add" value="http://192.168.56.101:8090/service/listener_joined.php"/>
+            <option name="listener_remove" value="http://192.168.56.101:8090/service/listener_left.php"/>
+            <option name="password" value="pass"/>
+            <option name="auth_header" value="icecast-auth-user: 1"/>
+            <option name="timelimit_header" value="icecast-auth-timelimit:"/>
+            <option name="headers" value="x-pragma,x-token"/>
+            <option name="header_prefix" value="ClientHeader."/>
+            <option name="stream_auth" value="http://192.168.56.101:8090/service/stream_auth.php"/>
+        </authentication>
+	</mount>
+
+    <http-headers>
+        <header name="Access-Control-Allow-Origin" value="*" />
+    </http-headers>
     <fileserve>1</fileserve>
+
     <paths>
-        <basedir>/usr/local/share/icecast</basedir>
-        <webroot>/usr/local/share/icecast/web</webroot>
-        <adminroot>/usr/local/share/icecast/admin</adminroot>
-        <logdir>/home/streaming/configs/8000</logdir>
-        <pidfile>/home/streaming/configs/8000/icecast.pid</pidfile>
-        <alias source="/" dest="/status.xsl"/>
+        <basedir>/usr/share/icecast2</basedir>
+        <logdir>/var/log/icecast2</logdir>
+        <webroot>/usr/share/icecast2/web</webroot>
+        <adminroot>/usr/share/icecast2/admin</adminroot>
+        <alias source="/" destination="/status.xsl"/>
     </paths>
+
     <logging>
-        <accesslog>access8000.log</accesslog>
-        <errorlog>error8000.log</errorlog>
-        <loglevel>3</loglevel>
-        <logsize>10000</logsize>
+        <accesslog>access.log</accesslog>
+        <errorlog>error.log</errorlog>
+        <loglevel>3</loglevel> 
+        <logsize>10000</logsize> 
     </logging>
     <security>
         <chroot>0</chroot>
-        <changeowner>
-            <user>icecast2</user>
-            <group>icecast</group>
-        </changeowner>
     </security>
 </icecast>
