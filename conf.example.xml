@@ -1,45 +1,40 @@
 <?xml version="1.0"?>
 <ices:Configuration xmlns:ices="http://www.icecast.org/projects/ices">
   <Playlist>
-    <File>/home/streaming/web/conf/8000-playlist-da-manha-teste.json</File>
+    <File>/home/streaming/configs/8000/playlists/8000-playlist-da-manha.json</File>
     <Randomize>1</Randomize>
     <Type>builtin</Type>
     <Module>ices</Module>
+    <Crossfade>
+      <fadein>.5</fadein>
+      <fadeout>.5</fadeout>
+      <startnext>.5</startnext>
+    </Crossfade>
   </Playlist>
-  <Radio>
-      <Name>Default stream</Name>
-      <Genre>Default genre</Genre>
-      <Description>Default description</Description>
-      <URL>http://localhost/</URL>
-  </Radio>
+  <Execution>
+    <Background>0</Background>
+    <Verbose>0</Verbose>
+    <BaseDirectory>/tmp</BaseDirectory>
+  </Execution>
   <Stream>
     <Server>
-      <Hostname>45.32.203.142</Hostname>
+      <Hostname>192.168.56.101</Hostname>
       <Port>8000</Port>
-      <User>hackme</User>
+      <User></User>
       <Password>hackme</Password>
       <Protocol>http</Protocol>
     </Server>
-    <Mountpoint>/live</Mountpoint>
-    <fallback-mount>/autodj</fallback-mount>
-    <Shoucast>
-      <shoutcast-mountpoint>/live</shoutcast-mountpoint>
-      <shoutcast-port>8001</shoutcast-port>
-    </Shoucast>
-    <Log>
-      <Logfile>true</Logfile>
-      <Loglevel>3</Loglevel>
-    </Log>
-    <Audio>
-      <Public>0</Public>
-      <Codec>AAC</Codec>
+    <shoutcast-url>http://192.168.56.101:8000/live</shoutcast-url>
+    <Mountpoint>/autodj</Mountpoint>
+    <Name>Default stream</Name>
+    <Genre>Default genre</Genre>
+    <Description>Default description</Description>
+    <URL>http://192.168.56.101/</URL>
+    <Encoder>
       <Bitrate>128</Bitrate>
-      <Channels>2</Channels>
-      <Crossfade>
-        <Fadein>0.</Fadein>
-        <Fadeout>0.</Fadeout>
-        <Startnext>0.</Startnext>
-      </Crossfade>
-    </Audio>
+      <codec>AAC</codec>
+      <Samplerate>44100</Samplerate>
+      <audio-obj-type>mpeg4_aac_lc</audio-obj-type>
+    </Encoder>
   </Stream>
 </ices:Configuration>

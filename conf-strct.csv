@@ -1,13 +1,12 @@
 Chave, Observações
 <Stream><Server>, X
 <Mountpoint>, Ponto de montagem principal
-<fallback-mount>, Fallback do ponto principal (precisa ter uma segunda tag de <mount> setada no XML do icecast2)
-<shoutcast-mountpoint>, Ponto de montagem de conexão da live para o DJ
-<shoutcast-port>, Porta para conexão do DJ. Não pode ser igual a porta do ponto de montagem
+<shoutcast-url>, Url com o ponto de montage da live ex.: http:://ip:porta/live
 <Genre>, X
 <Description>, X
 <Bitrate>, 96; 128; 192; 256 ou 320
-<Encode>, MP3/AAC
+<Codec>, MP3/AAC
+<audio-obj-type>, mpeg4_aac_lc ou mpeg4_he_aac
 <Playlist><File>, Caminho da playlist json; com os respectivos caminhos dos audios.
 <Logfile>, TRUE ou FALSE 
 <Loglevel>, Idica o nível de log desejado; intervalo entre 0 e 3
