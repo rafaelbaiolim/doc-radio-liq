@@ -222,13 +222,13 @@ Soluções Conhecidas
 
 Player congelar ao conectar a Live
 -------------------------------------------
-Se o encoder AAC estiver ativo, verifique se foi setado a chave `<audio-obj-type>`, 
+Se o encoder AAC estiver ativo, verifique se foi setado a chave ``<audio-obj-type>``, 
 no arquivo .conf, com um valor válido.
 
 Playlist reinicia do começo de cada música
 -------------------------------------------
 Arquivo XML do icecast2 não esta com memória alocada suficiente,
-tente aumentar o <burst-size>.
+tente aumentar o ``<burst-size>``.
 
 Autenticação no Mountpoint da live
 -------------------------------------------
