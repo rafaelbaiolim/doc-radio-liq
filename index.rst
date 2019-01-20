@@ -50,9 +50,7 @@ O IP da máquina é associado automaticamente em ``src.config.generator.php``.
 
 Live
 -----------
-Por padrão o script gera a *live* na porta seguinte ``(porta + 1)``.
-``Não é possível colocar a live e a rádio na mesma porta``.
-As configurações para conexão do *DJ* na rádio da porta ``8000`` 
+As configurações para conexão do *DJ* na rádio da porta ``8001`` 
 pode ser configurada na ferramenta ``Butt`` como na figura abaixo.
 
 .. image:: live-example.png
@@ -62,7 +60,7 @@ pode ser configurada na ferramenta ``Butt`` como na figura abaixo.
   :align: center
 
 Os dados desta autenticação estão na tabela de ``'locutores' do banco MYSQL``, importada no passo de instação.
-A tabela usada para testes deve conter os seguintes registros para que o ``brodcast`` da ``live`` na porta ``8000`` funcione: 
+A tabela usada para testes deve conter os seguintes registros para que o ``brodcast`` da ``live`` na porta ``8001`` funcione: 
 
 .. csv-table:: Registro de teste da tabela locutores
    :file: locutores.csv
