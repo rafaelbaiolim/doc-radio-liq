@@ -220,6 +220,11 @@ tanto no arquivo JSON quanto nos parâmetros de script.
 Soluções Conhecidas
 ===================
 
+Player congelar ao conectar a Live
+-------------------------------------------
+Se o encoder AAC estiver ativo, verifique se foi setado a chave `<audio-obj-type>`, 
+no arquivo .conf, com um valor válido.
+
 Playlist reinicia do começo de cada música
 -------------------------------------------
 Arquivo XML do icecast2 não esta com memória alocada suficiente,
