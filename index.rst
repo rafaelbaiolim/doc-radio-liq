@@ -274,14 +274,14 @@ Problema na instalação do ansible Ubuntu 18
 ---------------------------------------------
 Tente rodar os seguintes comandos para realizar a instalação:
 
-``$ sudo apt-get update
+``$ sudo apt-get update``
 
-$ sudo apt-get install software-properties-common
+``$ sudo apt-get install software-properties-common``
 
-$ sudo apt-add-repository --yes --update ppa:ansible/ansible
+``$ sudo apt-add-repository --yes --update ppa:ansible/ansible``
 
-$ sudo add-apt-repository universe
+``$ sudo add-apt-repository universe``
 
-$ sudo apt-get update
+``$ sudo apt-get update``
 
-$ sudo apt-get install ansible``
+``$ sudo apt-get install ansible``
