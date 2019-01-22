@@ -269,3 +269,14 @@ Habilitar Conexão Remota MYSQL
 2. ``GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'SENHA_DO_ROOT' WITH GRANT OPTION; FLUSH PRIVILEGES;``
 3. Edite o arquivo: ``/etc/mysql/mysql.conf.d/mysqld.cnf``> #bind-address = 127.0.0.1
 4. ``sudo service mysql restart``
+
+Problema na instalação do ansible Ubuntu 18
+---------------------------------------------
+Tente rodar os seguintes comandos para realizar a instalação:
+
+$ sudo apt-get update
+$ sudo apt-get install software-properties-common
+$ sudo apt-add-repository --yes --update ppa:ansible/ansible
+$ sudo add-apt-repository universe
+$ sudo apt-get update
+$ sudo apt-get install ansible
