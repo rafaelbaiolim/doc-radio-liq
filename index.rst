@@ -18,7 +18,7 @@ Instalação
 *Se já houver uma instalação antiga da rádio, execute o seguinte comando antes de prosseguir:*
 ``sudo rm -r /home/streaming/.opam``
 
-1. ``git clone https://gitlab.com/rafaelbaiolim1/liquidsoap.git -b install setup``
+1. ``git clone https://gitlab.com/rafaelbaiolim1/liquidsoap.git -b install setup --depth=1``
 2. ``cd setup && sudo ./install.sh``
 3. ``sudo mkdir /var/run/liquidsoap && sudo chown streaming:streaming /var/run/liquidsoap``
 4. ``sudo su streaming``
@@ -42,9 +42,9 @@ O IP da máquina é associado automaticamente em ``src.config.generator.php``.
 1. ``cd /home/streaming``
 2. ``php web/app/utils/src.config.generator.php``
 3. ``sudo chmod 777 -R /home/streaming/configs``
-4. ``sudo killall icecast2``
+4. ``sudo killall icecast``
 5. ``sudo killall liquidsoap``
-6. ``sudo icecast2 -c configs/8000.xml -b``
+6. ``sudo icecast -c configs/8000.xml -b``
 7. ``sh scripts/ligar_autodj 8000 1``
 8. ``sudo chmod 777 -R /home/streaming/configs``
 
@@ -197,8 +197,10 @@ Dependências do Servidor
 
 As deste projeto podem ser instaladas com o seguinte comando:  
 
-``$ sudo icecast2 git python python-dev apache2 php php-xml php-simplexml php-mysql 
+``$ sudo git python python-dev apache2 php php-xml php-simplexml php-mysql 
 mysql-server opam``
+
+``$ wget https://github.com/karlheyes/icecast-kh/archive/icecast-2.4.0-kh10.tar.gz &&  tar -xvzf icecast-2.4.0-kh10.tar.gz && cd icecast-kh-icecast-2.4.0-kh10 && ./configure && sudo ./make && sudo ./make install``
 
 Script de Instalação
 ----------------------------
