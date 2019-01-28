@@ -76,15 +76,15 @@ Gerar o certificado SSL
 Para geração de certificado está sendo utilizado o ``letsencrypt``. 
 Os seguintes passos são necessários para instalação do mesmo:
 
-1. mkdir -p /etc/letsencrypt/
+1. ``$ mkdir -p /etc/letsencrypt/``
 
-2. cd /etc/letsencrypt/
+2. ``$ cd /etc/letsencrypt/``
 
-3. wget https://dl.eff.org/certbot-auto
+3. ``$ wget https://dl.eff.org/certbot-auto``
 
-4. chmod a+x certbot-auto
+4. ``$ chmod a+x certbot-auto``
 
-5. ./certbot-auto --apache -d "DOMINIO_DA_RADIO"
+5. ``$ ./certbot-auto --apache -d "DOMINIO_DA_RADIO"``
 
 Verifique se os arquivos ``cert.pem``, ``chain.pem``, ``fullchain.pem`` e ``privkey.pem``
 foram gerados em ``/etc/live/DOMINIO_DA_RADIO``. 
