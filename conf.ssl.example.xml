@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<ices:Configuration xmlns:ices="https://www.icecast.org/projects/ices">
+  <Playlist>
+    <File>/home/streaming/configs/8000/playlists/8000-playlist-da-manha.json</File>
+    <Randomize>1</Randomize>
+    <Type>builtin</Type>
+    <Module>ices</Module>
+    <Crossfade>
+      <fadein>.5</fadein>
+      <fadeout>.5</fadeout>
+      <startnext>.5</startnext>
+    </Crossfade>
+  </Playlist>
+  <Execution>
+    <Background>0</Background>
+    <Verbose>0</Verbose>
+    <BaseDirectory>/tmp</BaseDirectory>
+  </Execution>
+  <Stream>
+    <Server>
+      <Hostname>45.32.203.142</Hostname>
+      <Port>8000</Port>
+      <User></User>
+      <Password>hackme</Password>
+      <Protocol>https</Protocol>
+    </Server>
+    <shoutcast-url>http://s01.creativesolucoes.com.br:8000/live</shoutcast-url>
+    <Mountpoint>/autodj</Mountpoint>
+    <Name>Default stream</Name>
+    <Genre>Default genre</Genre>
+    <Description>Default description</Description>
+    <URL>https://s01.creativesolucoes.com.br:8000</URL>
+    <Encoder>
+      <Bitrate>128</Bitrate>
+      <codec>AAC</codec>
+      <Samplerate>44100</Samplerate>
+      <audio-obj-type>mpeg4_aac_lc</audio-obj-type>
+    </Encoder>
+  </Stream>
+</ices:Configuration>

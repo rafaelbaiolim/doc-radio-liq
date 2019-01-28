@@ -68,6 +68,70 @@ A tabela usada para testes deve conter os seguintes registros para que o ``brodc
 
 *Note que é necessário que as flags de schedule, bem como os horários de streaming estejam setados para a autenticação ocorrer corretamente*
 
+SSL
+===================
+
+Gerar o certificado SSL
+-------------------------------------------
+Para geração de certificado está sendo utilizado o ``letsencrypt``. 
+Os seguintes passos são necessários para instalação do mesmo:
+
+1. mkdir -p /etc/letsencrypt/
+
+2. cd /etc/letsencrypt/
+
+3. wget https://dl.eff.org/certbot-auto
+
+4. chmod a+x certbot-auto
+
+5. ./certbot-auto --apache -d "DOMINIO_DA_RADIO"
+
+Verifique se os arquivos ``cert.pem``, ``chain.pem``, ``fullchain.pem`` e ``privkey.pem``
+foram gerados em ``/etc/live/DOMINIO_DA_RADIO``. 
+
+
+Gerar Arquivo icecast.pem 
+-------------------------------------------
+Para que o certificado gerado no ``letsencrypt`` funcione com o icecast 
+é necessário concatenar o certificado com a chave privada gerada. Execute 
+os seguintes comandos sempre que um certificado for gerado ou renovado: 
+
+``$ cat /etc/letsencrypt/live/DOMINIO_DA_RADIO/cert.pem > icecast.pem``
+
+``$ cat /etc/letsencrypt/live/DOMINIO_DA_RADIO/privkey.pem >> icecast.pem``
+
+``$ chown streaming:streaming icecast.pem``
+
+``$ chmod go-r icecast.pem``
+
+*Este arquivo foi colocado em /home/streaming/configs na instalação exemplo.*
+
+SSL Icecast XML 
+-------------------------------------------
+Para incluir o arquivo ``icecast.pem`` gerado no passo anterior 
+adicione a tag ``<ssl-certificate>`` dentro da tag ``<paths>``
+como segue no exemplo abaixo: 
+
+.. literalinclude:: icecast2.tag.ssl.example.xml 
+  :language: JSON
+
+Exemplo completo de um arquivo de configuração icecast2.xml 
+--------------------------------------------------------------
+
+.. literalinclude:: icecast2.ssl.example.xml 
+  :language: JSON
+
+
+Exemplo completo de um arquivo de configuração porta/*.conf 
+--------------------------------------------------------------
+
+.. literalinclude:: conf.ssl.example.xml
+  :language: JSON
+
+*Note que não é necessário que a URL da live esteja com o prefixo https, 
+o liquidsoap já realiza a bind automáticamente* 
+
+
 Explicações Detalhadas
 ======================================
 
