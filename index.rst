@@ -264,7 +264,7 @@ As deste projeto podem ser instaladas com o seguinte comando:
 1. ``sudo git python python-dev apache2 php php-xml php-simplexml php-mysql mysql-server opam``
 2. ``wget https://github.com/karlheyes/icecast-kh/archive/icecast-2.4.0-kh10.tar.gz``
 3. ``tar -xvzf icecast-2.4.0-kh10.tar.gz && cd icecast-kh-icecast-2.4.0-kh10`` 
-4.``./configure && sudo ./make && sudo ./make install``
+4. ``./configure && sudo ./make && sudo ./make install``
 
 Script de Instalação
 ----------------------------
