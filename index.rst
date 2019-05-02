@@ -335,7 +335,7 @@ Soluções Conhecidas
 Problema na encodificação das Meta Tags
 -------------------------------------------
 Verifique se no XML do ``icecast`` a chave ``<charset>`` 
-dos ``moutpoints`` (``<mount>``) utilizados  estam com o charset ``UTF-8``.
+dos ``moutpoints`` (``<mount>``) utilizados estão com o charset ``UTF-8``.
 
 Player congelar ao conectar a Live
 -------------------------------------------
