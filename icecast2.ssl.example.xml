@@ -23,35 +23,36 @@
     </listen-socket>
 
 	<mount type="normal">
-        <mount-name>/autodj</mount-name>
-        <max-listeners>999999</max-listeners> 
-        <max-listener-duration>3600</max-listener-duration> 
-        <charset>ISO8859-1</charset> 
-        <public>1</public> 
-        <stream-name>Radio</stream-name> 
-        <stream-description>autodj</stream-description> 
-        <stream-url>https://s01.creativesolucoes.com.br:8000/</stream-url> 
-        <genre>Various</genre> 
-        <bitrate>128</bitrate> 
+		<mount-name>/autodj</mount-name>
+		<max-listeners>999999</max-listeners> 
+		<max-listener-duration>3600</max-listener-duration> 
+		<charset>UTF-8</charset> 
+		<public>1</public> 
+		<stream-name>Radio</stream-name> 
+		<stream-description>autodj</stream-description> 
+		<stream-url>https://s01.creativesolucoes.com.br:8000/</stream-url> 
+		<genre>Various</genre> 
+		<bitrate>128</bitrate> 
 	</mount>
 	<mount type="normal">
-        <mount-name>/live</mount-name>
-        <fallback-mount>/autodj</fallback-mount>
-        <fallback-override>1</fallback-override>
-        <fallback-when-full>1</fallback-when-full>
-        <bitrate>128</bitrate>
-        <authentication type="url">
-            <option name="mount_add" value="https://s01.creativesolucoes.com.br/app/service/stream_start.php"/>
-            <option name="mount_remove" value="https://s01.creativesolucoes.com.br/app/service/stream_end.php"/>
-            <option name="listener_add" value="https://s01.creativesolucoes.com.br/app/service/listener_joined.php"/>
-            <option name="listener_remove" value="https://s01.creativesolucoes.com.br/app/service/listener_left.php"/>
-            <option name="password" value="pass"/>
-            <option name="auth_header" value="icecast-auth-user: 1"/>
-            <option name="timelimit_header" value="icecast-auth-timelimit:"/>
-            <option name="headers" value="x-pragma,x-token"/>
-            <option name="header_prefix" value="ClientHeader."/>
-            <option name="stream_auth" value="https://s01.creativesolucoes.com.br/app/service/stream_auth.php"/>
-        </authentication>
+		<mount-name>/live</mount-name>
+		<fallback-mount>/autodj</fallback-mount>
+		<fallback-override>1</fallback-override>
+		<fallback-when-full>1</fallback-when-full>
+		<bitrate>128</bitrate>
+		<charset>UTF-8</charset>
+		<authentication type="url">
+		    <option name="mount_add" value="https://s01.creativesolucoes.com.br/app/service/stream_start.php"/>
+		    <option name="mount_remove" value="https://s01.creativesolucoes.com.br/app/service/stream_end.php"/>
+		    <option name="listener_add" value="https://s01.creativesolucoes.com.br/app/service/listener_joined.php"/>
+		    <option name="listener_remove" value="https://s01.creativesolucoes.com.br/app/service/listener_left.php"/>
+		    <option name="password" value="pass"/>
+		    <option name="auth_header" value="icecast-auth-user: 1"/>
+		    <option name="timelimit_header" value="icecast-auth-timelimit:"/>
+		    <option name="headers" value="x-pragma,x-token"/>
+		    <option name="header_prefix" value="ClientHeader."/>
+		    <option name="stream_auth" value="https://s01.creativesolucoes.com.br/app/service/stream_auth.php"/>
+		</authentication>
 	</mount>
     <fileserve>1</fileserve>
     <paths>
