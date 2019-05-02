@@ -72,7 +72,7 @@ Agendamento
 ===================
 A configurações do agendamento são todas realizadas por meio do banco de dados da aplicação: 
 As seguintes tabelas são utilizadas para controlar o mesmo: 
- ``playlists_agendamentos, playlist_agendamento_dia, playlist_agendamento_semana, playlist_agendamento_tipo``
+``playlists_agendamentos, playlist_agendamento_dia, playlist_agendamento_semana, playlist_agendamento_tipo``
 
 Tabelas de dependências:
 ``streamings, servidor``
@@ -86,23 +86,23 @@ O nome do arquivo do agendamento na tabela `playlists_agendamentos` deve ser inf
    :file: playlists_agendamentos.csv
    :header-rows: 1 
 
-Agendamentos que se repetem semanalmente devem ser informados em `playlist_agendamento_semana`, informando 
+Agendamentos que se repetem semanalmente devem ser informados em ``playlist_agendamento_semana``, informando 
 os dias da semana que serão utilizados como `booleano` par aos dias da semana (sun, mon, tue, wed, thu, fri, sat), 
-bem como a chave estrangeira(cod_agendamento) para `playlists_agendamento`.
+bem como a chave estrangeira(cod_agendamento) para ``playlists_agendamento``.
 
-Agendamentos para dias específicos do mês devem ser informados em `playlist_agendamento_dia`, informando a 
-`data, hora de inicio e fim` do agendamento, bem como a chave estrangeira(cod_agendamento) para `playlists_agendamento`.
+Agendamentos para dias específicos do mês devem ser informados em ``playlist_agendamento_dia``, informando a 
+`data, hora de inicio e fim` do agendamento, bem como a chave estrangeira(cod_agendamento) para ``playlists_agendamento``.
 
 Crossfade
 ===================
-Os valores do `crossfade` presentes no arquivo XML de configuração `ices.conf`devem `obrigatoriamente` ser informados 
-com valores do tipo `float`, esse valor representa os segundos de duração do crossfade tanto para `fadeout` quanto para 
-`fadein`. 
+Os valores do ``crossfade`` presentes no arquivo XML de configuração ``ices.conf`` devem ``obrigatoriamente`` ser informados 
+com valores do tipo `float`, esse valor representa os segundos de duração do crossfade tanto para ``fadeout`` quanto para 
+``fadein``. 
 
 Para casos especiais, é possível atribuir uma duração mínima para que o aúdio tenha crossfade, essa configuração é feita 
-através da chave `min-length` e corresponde a duração em segundos, porém deve ser informado como valor `inteiro`. Exemplo:
+através da chave ``min-length`` e corresponde a duração em segundos, porém deve ser informado como valor ``inteiro``. Exemplo:
 
-<min-length>10</min-length> // nesse caso aúdios menores que 10 segundos não vão ter crossfade
+<min-length>10</min-length> ``nesse caso aúdios menores que 10 segundos não vão ter crossfade``
 
 Normalizador de Volume
 =======================
