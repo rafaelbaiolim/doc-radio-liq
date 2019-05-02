@@ -6,9 +6,9 @@
     <Type>builtin</Type>
     <Module>ices</Module>
     <Crossfade>
-      <fadein>.5</fadein>
-      <fadeout>.5</fadeout>
-      <startnext>.5</startnext>
+      <fadein>5.</fadein>
+      <fadeout>5.</fadeout>
+      <min-lenght>10</min-lenght>
     </Crossfade>
   </Playlist>
   <Execution>
