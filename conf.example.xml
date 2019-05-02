@@ -1,38 +1,55 @@
 <?xml version="1.0"?>
-<ices:Configuration xmlns:ices="http://www.icecast.org/projects/ices">
+<ices:Configuration xmlns:ices="https://www.icecast.org/projects/ices">
   <Playlist>
-    <File>/home/streaming/configs/8000/playlists/8000-playlist-da-manha.json</File>
-    <Randomize>1</Randomize>
+    <File>/home/streaming/configs/8000/8000-Aleatorio.json</File>
+    <Randomize>1</Randomize>    
+    <RandomTypes>
+       <tags>pr_vinhetas</tags>
+       <tags>programetes</tags>
+       <tags>programas</tags>
+       <tags>campanhas</tags>
+    </RandomTypes>
     <Type>builtin</Type>
     <Module>ices</Module>
     <Crossfade>
-      <fadein>.5</fadein>
-      <fadeout>.5</fadeout>
-      <startnext>.5</startnext>
+      <fadein>5.</fadein>
+      <fadeout>5.</fadeout>
+      <min-length>10</min-length>
     </Crossfade>
+    <Normalization>
+      <gain-max>6.0</gain-max>
+      <gain-min>-6.0</gain-min>
+      <k-down>0.1</k-down>
+      <k-up>0.005</k-up>
+      <taget>-13.0</taget>
+      <threshold>-40.0</threshold>
+      <window>0.1</window>
+    </Normalization>
   </Playlist>
   <Execution>
     <Background>0</Background>
-    <Verbose>0</Verbose>
+    <Verbose>1</Verbose>
     <BaseDirectory>/tmp</BaseDirectory>
   </Execution>
+  <Logfile>true</Logfile>
+  <Loglevel>3</Loglevel>
   <Stream>
     <Server>
-      <Hostname>192.168.56.101</Hostname>
+      <Hostname>45.32.203.142</Hostname>
       <Port>8000</Port>
       <User></User>
       <Password>hackme</Password>
       <Protocol>http</Protocol>
     </Server>
-    <shoutcast-url>http://192.168.56.101:8000/live</shoutcast-url>
+    <shoutcast-url>http://sv01.kshost.com.br:8000/live</shoutcast-url>
     <Mountpoint>/autodj</Mountpoint>
     <Name>Default stream</Name>
-    <Genre>Default genre</Genre>
+    <Genre>Reggae</Genre>
     <Description>Default description</Description>
-    <URL>http://192.168.56.101/</URL>
+    <URL>http://sv01.kshost.com.br:8000</URL>
     <Encoder>
-      <Bitrate>128</Bitrate>
-      <codec>AAC</codec>
+      <Bitrate>64</Bitrate>
+      <codec>aacp</codec>
       <Samplerate>44100</Samplerate>
       <audio-obj-type>mpeg4_aac_lc</audio-obj-type>
     </Encoder>

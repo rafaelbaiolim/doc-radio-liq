@@ -28,7 +28,7 @@
 
 	<mount type="normal">
 		<mount-name>/autodj</mount-name>
-		<charset>ISO8859-1</charset>
+		<charset>UTF-8</charset>
 		<public>1</public>
 		<stream-name>Radio</stream-name>
 		<stream-description>autodj</stream-description>
@@ -42,6 +42,7 @@
 		<fallback-mount>/autodj</fallback-mount>
 		<fallback-override>1</fallback-override>
 		<fallback-when-full>1</fallback-when-full>
+		<charset>UTF-8</charset>
 		<bitrate>64</bitrate>
 		<type>application/mp3</type>
         <authentication type="url">

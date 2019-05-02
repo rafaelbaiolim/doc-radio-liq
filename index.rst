@@ -68,6 +68,54 @@ A tabela usada para testes deve conter os seguintes registros para que o ``brodc
 
 *Note que é necessário que as flags de schedule, bem como os horários de streaming estejam setados para a autenticação ocorrer corretamente*
 
+Agendamento
+===================
+A configurações do agendamento são todas realizadas por meio do banco de dados da aplicação: 
+As seguintes tabelas são utilizadas para controlar o mesmo: 
+ ``playlists_agendamentos, playlist_agendamento_dia, playlist_agendamento_semana, playlist_agendamento_tipo``
+
+Tabelas de dependências:
+``streamings, servidor``
+
+As tabelas de dependências devem estar com as informações corretas do servidor, como IP e Porta 
+para que a `query` do agendamento seja executada corretamente. 
+
+O nome do arquivo do agendamento na tabela `playlists_agendamentos` deve ser informado `sem extensão`. 
+
+.. csv-table:: Exemplo de configuração playlists_agendamentos
+   :file: playlists_agendamentos.csv
+   :header-rows: 1 
+
+Agendamentos que se repetem semanalmente devem ser informados em `playlist_agendamento_semana`, informando 
+os dias da semana que serão utilizados como `booleano` par aos dias da semana (sun, mon, tue, wed, thu, fri, sat), 
+bem como a chave estrangeira(cod_agendamento) para `playlists_agendamento`.
+
+Agendamentos para dias específicos do mês devem ser informados em `playlist_agendamento_dia`, informando a 
+`data, hora de inicio e fim` do agendamento, bem como a chave estrangeira(cod_agendamento) para `playlists_agendamento`.
+
+Crossfade
+===================
+Os valores do `crossfade` presentes no arquivo XML de configuração `ices.conf`devem `obrigatoriamente` ser informados 
+com valores do tipo `float`, esse valor representa os segundos de duração do crossfade tanto para `fadeout` quanto para 
+`fadein`. 
+
+Para casos especiais, é possível atribuir uma duração mínima para que o aúdio tenha crossfade, essa configuração é feita 
+através da chave `min-length` e corresponde a duração em segundos, porém deve ser informado como valor `inteiro`. Exemplo:
+
+<min-length>10</min-length> // nesse caso aúdios menores que 10 segundos não vão ter crossfade
+
+Normalizador de Volume
+=======================
+A função de normalizar o volume dos aúdios possue os valores dinâmicos para serem setados/adaptados de acordo com 
+a necessecidade, os valores disponíveis são: 
+
+.. literalinclude:: nivelador.example.xml 
+  :language: JSON
+
+Os valores informados acima são os valores padrões do liquidsoap, informações sobre cada parâmtro podem ser 
+consultadas em: 
+https://www.liquidsoap.info/doc-1.3.6/reference.html#normalize
+
 SSL
 ===================
 
