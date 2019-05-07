@@ -1,0 +1,9 @@
+<Normalization>
+	<gain-max>6.0</gain-max>
+	<gain-min>-6.0</gain-min>
+	<k-down>0.1</k-down>
+	<k-up>0.005</k-up>
+	<taget>-13.0</taget>
+	<threshold>-40.0</threshold>
+	<window>0.1</window>
+</Normalization>
