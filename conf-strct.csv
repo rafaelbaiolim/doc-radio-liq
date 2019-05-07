@@ -4,7 +4,7 @@ Chave, Observações
 <shoutcast-url>, Url com o ponto de montage da live ex.: http://ip:porta/live
 <Genre>, X
 <Description>, X
-<Bitrate>, 96; 128; 192; 256 ou 320
+<Bitrate>, 320;256;192;128;96;64;48; 32; 24
 <Codec>, MP3/AAC
 <audio-obj-type>, mpeg4_aac_lc ou mpeg4_he_aac
 <Playlist><File>, Caminho da playlist json; com os respectivos caminhos dos audios.
